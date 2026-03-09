@@ -8,6 +8,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Rental Karting Trophy (RKT)",
   description: "Web oficial del campeonato Rental Karting Trophy (RKT).",
+  icons: {
+    icon: "/logos/LETRAS_RKT.png",
+    shortcut: "/logos/LETRAS_RKT.png",
+    apple: "/logos/LETRAS_RKT.png",
+  },
 };
 
 export default function RootLayout({
