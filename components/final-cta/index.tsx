@@ -67,7 +67,7 @@ function AnimatedCounter({ target }: { target: number }) {
 
 export function FinalCtaSection() {
   const [confirmedPilots, setConfirmedPilots] = useState<number | null>(null);
-  const [countdown, setCountdown] = useState<Countdown>(getCountdown());
+  const [countdown, setCountdown] = useState<Countdown | null>(null);
 
   // Fetch pilot count
   useEffect(() => {
@@ -90,8 +90,9 @@ export function FinalCtaSection() {
     };
   }, []);
 
-  // Countdown tick
+  // Countdown tick — initialized client-side only to avoid SSR hydration mismatch
   useEffect(() => {
+    setCountdown(getCountdown());
     const id = setInterval(() => setCountdown(getCountdown()), 1000);
     return () => clearInterval(id);
   }, []);
@@ -211,13 +212,19 @@ export function FinalCtaSection() {
             Faltan para el evento · 3 Jul 2026
           </p>
           <div className="flex items-center justify-center gap-3 sm:gap-5">
-            <CountdownUnit value={countdown.days} label="días" />
-            <span className="mb-5 text-2xl font-bold text-[#D4AF37]/60">:</span>
-            <CountdownUnit value={countdown.hours} label="horas" />
-            <span className="mb-5 text-2xl font-bold text-[#D4AF37]/60">:</span>
-            <CountdownUnit value={countdown.minutes} label="min" />
-            <span className="mb-5 text-2xl font-bold text-[#D4AF37]/60">:</span>
-            <CountdownUnit value={countdown.seconds} label="seg" />
+            {countdown ? (
+              <>
+                <CountdownUnit value={countdown.days} label="días" />
+                <span className="mb-5 text-2xl font-bold text-[#D4AF37]/60">:</span>
+                <CountdownUnit value={countdown.hours} label="horas" />
+                <span className="mb-5 text-2xl font-bold text-[#D4AF37]/60">:</span>
+                <CountdownUnit value={countdown.minutes} label="min" />
+                <span className="mb-5 text-2xl font-bold text-[#D4AF37]/60">:</span>
+                <CountdownUnit value={countdown.seconds} label="seg" />
+              </>
+            ) : (
+              <div className="h-20 w-72 animate-pulse rounded-lg bg-white/5" />
+            )}
           </div>
         </motion.div>
 
