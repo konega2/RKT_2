@@ -149,7 +149,7 @@ export async function ensureTrainingSessionsSeedData() {
       name: session.name,
       time: session.time,
       duration: 10,
-      maxPilots: 12,
+      maxPilots: 24,
     })),
   });
 }
