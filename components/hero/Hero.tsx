@@ -320,10 +320,10 @@ export function Hero() {
         />
 
         <motion.div variants={eventFade} className="mt-5 flex flex-col items-center gap-1">
-          <span className="text-sm font-semibold text-white/90 sm:text-base">
-            Rental Karting Trophy 2026
+          <span className="text-sm font-semibold uppercase tracking-[0.08em] text-white [text-shadow:0_0_12px_rgba(255,255,255,0.18)] sm:text-base">
+            Rental Karting Trophy
           </span>
-          <span className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-zinc-500 sm:text-xs">
+          <span className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/78 [text-shadow:0_0_8px_rgba(255,255,255,0.12)] sm:text-xs">
             Kartódromo Internacional Lucas Guerrero
           </span>
           <span className="mt-0.5 text-sm font-bold uppercase tracking-widest text-amber-400 sm:text-sm">
@@ -340,7 +340,7 @@ export function Hero() {
               aria-hidden="true"
               className="absolute inset-0 -translate-x-full skew-x-[-18deg] bg-white/15 transition-transform duration-700 group-hover:translate-x-full"
             />
-            <span className="relative">Reserva tu plaza en la parrilla</span>
+            <span className="relative">RESERVA TU PLAZA</span>
           </a>
         </motion.div>
 
