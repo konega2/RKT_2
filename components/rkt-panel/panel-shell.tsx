@@ -29,9 +29,10 @@ const STREAKS = [
 const NAV_ITEMS = [
   { href: "/rkt-panel/dashboard", label: "Dashboard", icon: "grid" },
   { href: "/rkt-panel/pilotos", label: "Pilotos confirmados", icon: "helmet" },
+  { href: "/rkt-panel/entrenamientos", label: "Entrenamientos", icon: "helmet" },
 ] as const;
 
-const FUTURE_ITEMS = ["Entrenamientos", "Carreras"] as const;
+const FUTURE_ITEMS = ["Carreras"] as const;
 
 function Icon({ kind }: { kind: "grid" | "helmet" | "logout" }) {
   if (kind === "helmet") {

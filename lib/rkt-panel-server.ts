@@ -1,5 +1,11 @@
 import { prisma } from "@/lib/prisma";
-import { DEFAULT_DRIVERS, type DriverComment, type DriverRecord } from "@/lib/rkt-panel";
+import {
+  DEFAULT_DRIVERS,
+  DEFAULT_TRAINING_SESSIONS,
+  type DriverComment,
+  type DriverRecord,
+  type TrainingSessionRecord,
+} from "@/lib/rkt-panel";
 
 type PilotWithComments = {
   id: string;
@@ -23,6 +29,18 @@ type PilotWithComments = {
     text: string;
     createdAt: Date;
     pilotId: string;
+  }>;
+};
+
+type TrainingSessionWithAssignments = {
+  id: string;
+  name: string;
+  time: string;
+  duration: number;
+  maxPilots: number;
+  assignments: Array<{
+    id: string;
+    pilot: PilotWithComments;
   }>;
 };
 
@@ -89,6 +107,17 @@ export function pilotCreateInputFromRecord(record: DriverRecord) {
   };
 }
 
+export function serializeTrainingSession(session: TrainingSessionWithAssignments): TrainingSessionRecord {
+  return {
+    id: session.id,
+    name: session.name,
+    time: session.time,
+    duration: session.duration,
+    maxPilots: session.maxPilots,
+    pilots: session.assignments.map((assignment) => serializePilot(assignment.pilot)),
+  };
+}
+
 export async function ensurePilotSeedData() {
   const existing = await prisma.pilot.count();
 
@@ -104,4 +133,21 @@ export async function ensurePilotSeedData() {
       },
     });
   }
+}
+
+export async function ensureTrainingSessionsSeedData() {
+  const existing = await prisma.trainingSession.count();
+
+  if (existing > 0) {
+    return;
+  }
+
+  await prisma.trainingSession.createMany({
+    data: DEFAULT_TRAINING_SESSIONS.map((session) => ({
+      name: session.name,
+      time: session.time,
+      duration: 10,
+      maxPilots: 6,
+    })),
+  });
 }

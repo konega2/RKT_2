@@ -35,6 +35,15 @@ export interface DriverRecord {
   internalNotes: string;
 }
 
+export interface TrainingSessionRecord {
+  id: string;
+  name: string;
+  time: string;
+  duration: number;
+  maxPilots: number;
+  pilots: DriverRecord[];
+}
+
 export const PANEL_AUTH_KEY = "rkt-panel-authenticated";
 export const DRIVERS_STORAGE_KEY = "rkt-panel-drivers";
 
@@ -47,6 +56,36 @@ export const DRIVER_CATEGORIES: DriverCategory[] = ["Senior", "Junior", "Pro", "
 export const DRIVER_STATUSES: DriverStatus[] = ["Activo", "Inactivo"];
 
 const DEFAULT_PHOTO = "/logos/logo_rkt.png";
+
+export const DEFAULT_TRAINING_SESSIONS = [
+  { time: "10:30", name: "Entrenamientos Libres 1" },
+  { time: "10:50", name: "Entrenamientos Libres 2" },
+  { time: "11:10", name: "Entrenamientos Libres 3" },
+  { time: "11:30", name: "Entrenamientos Libres 4" },
+  { time: "11:50", name: "Entrenamientos Libres 5" },
+  { time: "12:10", name: "Entrenamientos Libres 6" },
+  { time: "12:40", name: "Entrenamientos Libres 7" },
+  { time: "13:00", name: "Entrenamientos Libres 8" },
+  { time: "13:20", name: "Entrenamientos Libres 9" },
+  { time: "13:40", name: "Entrenamientos Libres 10" },
+  { time: "14:00", name: "Entrenamientos Libres 11" },
+  { time: "14:20", name: "Entrenamientos Libres 12" },
+  { time: "14:50", name: "Entrenamientos Libres 13" },
+  { time: "15:10", name: "Entrenamientos Libres 14" },
+  { time: "15:30", name: "Entrenamientos Libres 15" },
+  { time: "15:50", name: "Entrenamientos Libres 16" },
+  { time: "16:10", name: "Entrenamientos Libres 17" },
+  { time: "16:30", name: "Entrenamientos Libres 18" },
+  { time: "17:00", name: "Entrenamientos Libres 19" },
+  { time: "17:20", name: "Entrenamientos Libres 20" },
+  { time: "17:40", name: "Entrenamientos Libres 21" },
+  { time: "18:00", name: "Entrenamientos Libres 22" },
+  { time: "18:20", name: "Entrenamientos Libres 23" },
+  { time: "18:40", name: "Entrenamientos Libres 24" },
+  { time: "19:10", name: "Entrenamientos Libres 25" },
+  { time: "19:30", name: "Entrenamientos Libres 26" },
+  { time: "19:50", name: "Entrenamientos Libres 27" },
+] as const;
 
 export const DEFAULT_DRIVERS: DriverRecord[] = [
   {

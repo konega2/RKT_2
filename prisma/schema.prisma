@@ -26,6 +26,7 @@ model Pilot {
   confirmedBy       String    @default("Panel RKT")
   createdAt         DateTime  @default(now())
   comments          Comment[]
+  assignments       TrainingAssignment[]
 
   @@index([name])
   @@index([category])
@@ -41,4 +42,27 @@ model Comment {
   pilot     Pilot    @relation(fields: [pilotId], references: [id], onDelete: Cascade)
 
   @@index([pilotId])
+}
+
+model TrainingSession {
+  id          String               @id @default(cuid())
+  name        String
+  time        String
+  duration    Int
+  maxPilots   Int                  @default(6)
+  assignments TrainingAssignment[]
+
+  @@index([time])
+}
+
+model TrainingAssignment {
+  id        String          @id @default(cuid())
+  pilotId   String
+  sessionId String
+  pilot     Pilot           @relation(fields: [pilotId], references: [id], onDelete: Cascade)
+  session   TrainingSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([pilotId, sessionId])
+  @@index([pilotId])
+  @@index([sessionId])
 }
