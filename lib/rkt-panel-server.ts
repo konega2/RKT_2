@@ -147,7 +147,7 @@ export async function ensureTrainingSessionsSeedData() {
       name: session.name,
       time: session.time,
       duration: 10,
-      maxPilots: 6,
+      maxPilots: 12,
     })),
   });
 }

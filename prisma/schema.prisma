@@ -49,7 +49,7 @@ model TrainingSession {
   name        String
   time        String
   duration    Int
-  maxPilots   Int                  @default(6)
+  maxPilots   Int                  @default(12)
   assignments TrainingAssignment[]
 
   @@index([time])
