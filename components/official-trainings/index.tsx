@@ -144,21 +144,21 @@ export function OfficialTrainingsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-[26px] border border-amber-500/20 bg-black/45 p-5 backdrop-blur-xl sm:p-7"
+          className="rounded-[26px] border border-amber-500/25 bg-black/35 p-5 backdrop-blur-xl sm:p-7"
         >
           <div className="mb-6">
-            <p className="text-[11px] uppercase tracking-[0.34em] text-amber-300/75">Entrenamientos Oficiales</p>
+            <p className="text-[11px] uppercase tracking-[0.34em] text-amber-300/90">Entrenamientos Oficiales</p>
             <h2 className="mt-3 text-2xl font-black uppercase tracking-[0.08em] text-white sm:text-3xl">Entrenamientos Oficiales</h2>
-            <p className="mt-2 text-sm text-white/62">Viernes 3 de julio – sesiones de entrenamientos libres.</p>
+            <p className="mt-2 text-sm text-white/80">Viernes 3 de julio – sesiones de entrenamientos libres.</p>
           </div>
 
-          <div className="mb-5 rounded-2xl border border-amber-500/15 bg-white/[0.03] p-4">
-            <p className="text-[11px] uppercase tracking-[0.28em] text-amber-300/70">¿En qué entrenamientos estoy?</p>
+          <div className="mb-5 rounded-2xl border border-amber-500/20 bg-white/[0.05] p-4">
+            <p className="text-[11px] uppercase tracking-[0.28em] text-amber-300/85">¿En qué entrenamientos estoy?</p>
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Buscar tu nombre..."
-              className="mt-3 w-full rounded-xl border border-amber-500/20 bg-black/45 px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-amber-300/55"
+              className="mt-3 w-full rounded-xl border border-amber-500/25 bg-black/35 px-4 py-3 text-sm text-white outline-none placeholder:text-white/50 focus:border-amber-300/55"
             />
 
             <AnimatePresence initial={false}>
@@ -183,7 +183,7 @@ export function OfficialTrainingsSection() {
                         </div>
                       </>
                     ) : (
-                      <p className="text-sm text-white/65">No encontramos ese piloto en las sesiones actuales.</p>
+                      <p className="text-sm text-white/80">No encontramos ese piloto en las sesiones actuales.</p>
                     )}
                   </div>
                 </motion.div>
@@ -199,7 +199,7 @@ export function OfficialTrainingsSection() {
             </div>
 
             {loading ? (
-              <div className="px-4 py-5 text-sm text-white/50">Cargando entrenamientos...</div>
+              <div className="px-4 py-5 text-sm text-white/75">Cargando entrenamientos...</div>
             ) : (
               paginatedSessions.map((session) => {
                 const assigned = session.pilots.length;
@@ -228,7 +228,7 @@ export function OfficialTrainingsSection() {
                           transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
                           className="overflow-hidden"
                         >
-                          <div className="border-t border-amber-500/10 bg-black/35 px-4 py-3">
+                          <div className="border-t border-amber-500/10 bg-black/25 px-4 py-3">
                             {session.pilots.length > 0 ? (
                               <div className="grid gap-2 sm:grid-cols-2">
                                 {session.pilots.map((pilot) => (
@@ -241,7 +241,7 @@ export function OfficialTrainingsSection() {
                                 ))}
                               </div>
                             ) : (
-                              <p className="text-sm text-white/55">No hay pilotos asignados todavía.</p>
+                              <p className="text-sm text-white/75">No hay pilotos asignados todavía.</p>
                             )}
                           </div>
                         </motion.div>
@@ -266,7 +266,7 @@ export function OfficialTrainingsSection() {
               >
                 Anterior
               </button>
-              <span className="px-2 text-xs uppercase tracking-[0.14em] text-white/60">
+              <span className="px-2 text-xs uppercase tracking-[0.14em] text-white/80">
                 Página {page + 1} de {totalPages}
               </span>
               <button

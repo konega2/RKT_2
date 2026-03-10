@@ -97,10 +97,10 @@ export function GlobalBackground() {
       <div className="absolute inset-0 bg-black" />
 
       {/* Glow dorado suave centrado en la parte alta (zona hero) */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_18%,rgba(212,175,55,0.13)_0%,rgba(212,175,55,0.05)_40%,transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_18%,rgba(212,175,55,0.19)_0%,rgba(212,175,55,0.08)_42%,transparent_74%)]" />
 
       {/* Glow secundario suave en la parte baja */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_80%,rgba(180,83,9,0.07)_0%,transparent_65%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_80%,rgba(180,83,9,0.1)_0%,transparent_68%)]" />
 
       {/* Rayas diagonales doradas animadas — drift horizontal muy lento */}
       <motion.svg
@@ -150,7 +150,7 @@ export function GlobalBackground() {
       </motion.svg>
 
       {/* Viñeta perimetral para oscurecer los bordes */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_110%_100%_at_50%_50%,transparent_40%,rgba(0,0,0,0.55)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_110%_100%_at_50%_50%,transparent_45%,rgba(0,0,0,0.4)_100%)]" />
     </div>
   );
 }

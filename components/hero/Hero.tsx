@@ -248,7 +248,7 @@ export function Hero() {
 
       <div
         aria-hidden="true"
-        className="scanlines pointer-events-none absolute inset-0 z-0 opacity-[0.16]"
+        className="scanlines pointer-events-none absolute inset-0 z-0 opacity-[0.09]"
       />
 
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
@@ -298,10 +298,10 @@ export function Hero() {
         />
 
         <h1 className="flex flex-col text-[clamp(2.4rem,7vw,5.5rem)] font-black uppercase leading-[0.92] tracking-tighter">
-          <motion.span variants={titleSlide} className="block text-white">
+          <motion.span variants={titleSlide} className="block text-white [text-shadow:0_0_14px_rgba(255,255,255,0.16)]">
             Are you ready
           </motion.span>
-          <motion.span variants={titleSlide} className="block text-white">
+          <motion.span variants={titleSlide} className="block text-white [text-shadow:0_0_14px_rgba(255,255,255,0.16)]">
             to be the first
           </motion.span>
           <motion.span

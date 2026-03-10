@@ -27,7 +27,7 @@ function getCountdown(): Countdown {
 function CountdownUnit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="relative flex h-16 w-16 items-center justify-center rounded-lg border border-[#D4AF37]/30 bg-black/60 sm:h-20 sm:w-20">
+      <div className="relative flex h-16 w-16 items-center justify-center rounded-lg border border-[#D4AF37]/40 bg-black/45 sm:h-20 sm:w-20">
         <span className="font-['Rajdhani',sans-serif] text-3xl font-bold text-[#D4AF37] sm:text-4xl">
           {String(value).padStart(2, "0")}
         </span>
@@ -37,7 +37,7 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
         <span className="absolute bottom-0 left-0 h-2 w-2 border-b-2 border-l-2 border-[#D4AF37]/70" />
         <span className="absolute bottom-0 right-0 h-2 w-2 border-b-2 border-r-2 border-[#D4AF37]/70" />
       </div>
-      <span className="text-xs font-semibold uppercase tracking-widest text-white/50">
+      <span className="text-xs font-semibold uppercase tracking-widest text-white/75">
         {label}
       </span>
     </div>
@@ -126,7 +126,7 @@ export function FinalCtaSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-6 font-['Rajdhani',sans-serif] text-4xl font-black uppercase leading-none tracking-tight text-white sm:text-5xl md:text-6xl"
+          className="mb-6 font-['Rajdhani',sans-serif] text-4xl font-black uppercase leading-none tracking-tight text-white [text-shadow:0_0_12px_rgba(255,255,255,0.14)] sm:text-5xl md:text-6xl"
         >
           ¿ESTÁS DENTRO?
         </motion.h2>
@@ -146,9 +146,9 @@ export function FinalCtaSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.25 }}
-          className="mx-auto mb-10 max-w-lg rounded-xl border border-[#D4AF37]/20 bg-white/[0.03] p-6 backdrop-blur-sm"
+          className="mx-auto mb-10 max-w-lg rounded-xl border border-[#D4AF37]/28 bg-white/[0.05] p-6 backdrop-blur-sm"
         >
-          <p className="mb-1 text-sm uppercase tracking-widest text-white/50">
+          <p className="mb-1 text-sm uppercase tracking-widest text-white/75">
             Plazas ocupadas
           </p>
           <p className="mb-4 font-['Rajdhani',sans-serif] text-5xl font-black text-white sm:text-6xl">
@@ -171,7 +171,7 @@ export function FinalCtaSection() {
               transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
             />
           </div>
-          <p className="mt-2 text-xs text-white/40">
+          <p className="mt-2 text-xs text-white/72">
             {MAX_PILOTS - pilots > 0
               ? `Quedan ${MAX_PILOTS - pilots} plazas disponibles`
               : "¡Aforo completo!"}
@@ -186,7 +186,7 @@ export function FinalCtaSection() {
           transition={{ duration: 0.6, delay: 0.35 }}
           className="mb-12"
         >
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-white/72">
             Faltan para el evento · 3 Jul 2026
           </p>
           <div className="flex items-center justify-center gap-3 sm:gap-5">
@@ -226,7 +226,7 @@ export function FinalCtaSection() {
           Reservar mi plaza
         </motion.a>
 
-        <p className="mt-5 text-xs text-white/30">
+        <p className="mt-5 text-xs text-white/65">
           Acceso exclusivo · 96 plazas totales · Kartodromo Valencia
         </p>
       </div>
