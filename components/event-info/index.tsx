@@ -62,38 +62,6 @@ const SPIKE_STYLES: React.CSSProperties[] = [
   { right: "1.75rem", left: "auto", transform: "translateX(0)" },
 ];
 
-const STREAKS = [
-  {
-    id: 0,
-    d: "M -420 280 C 20 180 460 80 900 0 C 1220 -48 1530 -88 1880 -140",
-    outer: "#78350F",
-    mid: "#D97706",
-    core: "#FDE68A",
-    outerOpacity: 0.07,
-    midOpacity: 0.14,
-    coreOpacity: 0.3,
-  },
-  {
-    id: 1,
-    d: "M -460 420 C -10 300 440 180 880 80 C 1220 0 1540 -60 1900 -120",
-    outer: "#78350F",
-    mid: "#F59E0B",
-    core: "#FEF3C7",
-    outerOpacity: 0.05,
-    midOpacity: 0.1,
-    coreOpacity: 0.22,
-  },
-  {
-    id: 2,
-    d: "M -380 540 C 40 400 460 260 920 140 C 1240 56 1560 -20 1900 -100",
-    outer: "#78350F",
-    mid: "#B45309",
-    core: "#FDE68A",
-    outerOpacity: 0.04,
-    midOpacity: 0.08,
-    coreOpacity: 0.16,
-  },
-] as const;
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const SPRING = { type: "spring", stiffness: 380, damping: 28 } as const;
@@ -464,7 +432,7 @@ export function EventInfoSection() {
       ref={sectionRef}
       id="event-info"
       aria-label="Información del Evento"
-      className="relative overflow-hidden bg-black py-28 md:py-36"
+      className="relative overflow-hidden py-28 md:py-36"
     >
       <div
         aria-hidden
@@ -472,15 +440,7 @@ export function EventInfoSection() {
         style={{ background: "radial-gradient(ellipse 70% 55% at 50% 60%, rgba(120,53,15,0.18) 0%, transparent 70%)" }}
       />
 
-      <svg aria-hidden className="pointer-events-none absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1440 600">
-        {STREAKS.map((s) => (
-          <g key={s.id}>
-            <path d={s.d} stroke={s.outer} strokeWidth="28" fill="none" opacity={s.outerOpacity} />
-            <path d={s.d} stroke={s.mid} strokeWidth="8" fill="none" opacity={s.midOpacity} />
-            <path d={s.d} stroke={s.core} strokeWidth="1.5" fill="none" opacity={s.coreOpacity} />
-          </g>
-        ))}
-      </svg>
+
 
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(251,191,36,0.2) 30%, rgba(253,230,138,0.4) 50%, rgba(251,191,36,0.2) 70%, transparent)" }} />
 

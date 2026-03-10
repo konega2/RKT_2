@@ -65,31 +65,6 @@ const FEATURE_CARDS: FeatureCard[] = [
   },
 ];
 
-/* ─── Background streaks ─────────────────────────────────────────────── */
-
-const STREAKS = [
-  {
-    id: 0,
-    d: "M -420 800 C 20 560 460 300 900 80 C 1220 -80 1530 -180 1880 -280",
-    outer: "#78350F",
-    mid: "#D97706",
-    core: "#FDE68A",
-    outerOpacity: 0.07,
-    midOpacity: 0.14,
-    coreOpacity: 0.3,
-  },
-  {
-    id: 1,
-    d: "M -460 640 C -10 420 420 200 860 -10 C 1190 -140 1510 -220 1860 -310",
-    outer: "#78350F",
-    mid: "#F59E0B",
-    core: "#FEF3C7",
-    outerOpacity: 0.05,
-    midOpacity: 0.1,
-    coreOpacity: 0.22,
-  },
-] as const;
-
 /* ─── Animation constants ────────────────────────────────────────────── */
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -390,53 +365,9 @@ export function SocialFeedSection() {
       id="social-feed"
       ref={sectionRef}
       aria-label="Actualidad del RKT"
-      className="relative overflow-hidden bg-black py-24 md:py-32"
+      className="relative overflow-hidden py-24 md:py-32"
     >
-      {/* Background diagonal streaks */}
-      <svg
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        preserveAspectRatio="none"
-        viewBox="0 0 1440 800"
-      >
-        {STREAKS.map((s) => (
-          <g key={s.id}>
-            <path
-              d={s.d}
-              stroke={s.outer}
-              strokeWidth={22}
-              fill="none"
-              opacity={s.outerOpacity}
-            />
-            <path
-              d={s.d}
-              stroke={s.mid}
-              strokeWidth={8}
-              fill="none"
-              opacity={s.midOpacity}
-            />
-            <path
-              d={s.d}
-              stroke={s.core}
-              strokeWidth={2.5}
-              fill="none"
-              opacity={s.coreOpacity}
-            />
-          </g>
-        ))}
-      </svg>
 
-      {/* Radial glow top-center */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2"
-        style={{
-          width: "900px",
-          height: "500px",
-          background:
-            "radial-gradient(ellipse at 50% 0%, rgba(217,119,6,0.08) 0%, transparent 70%)",
-        }}
-      />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── Section header ─────────────────────────────────────────── */}

@@ -104,31 +104,9 @@ export function FinalCtaSection() {
     <section
       id="final-cta"
       aria-label="Participantes confirmados e inscripción"
-      className="relative overflow-hidden bg-black py-24"
+      className="relative overflow-hidden py-24"
     >
-      {/* Background streaks */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage: `repeating-linear-gradient(
-            105deg,
-            #D4AF37 0px,
-            #D4AF37 1px,
-            transparent 1px,
-            transparent 60px
-          )`,
-        }}
-      />
-      {/* Radial glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-20"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, #D4AF37 0%, transparent 70%)",
-        }}
-      />
+
 
       <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
         {/* Eyebrow */}

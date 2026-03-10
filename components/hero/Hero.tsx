@@ -169,7 +169,6 @@ export function Hero() {
       `}</style>
 
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-black" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,200,0,0.45)_0%,rgba(255,180,0,0.25)_30%,rgba(255,150,0,0.10)_50%,transparent_70%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,210,40,0.22)_0%,rgba(255,170,0,0.12)_40%,transparent_72%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_78%_58%_at_50%_54%,rgba(245,158,11,0.18)_0%,rgba(180,83,9,0.10)_38%,transparent_72%)]" />

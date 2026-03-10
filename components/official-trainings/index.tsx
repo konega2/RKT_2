@@ -18,29 +18,6 @@ interface PublicTrainingSession {
   pilots: TrainingPilot[];
 }
 
-const STREAKS = [
-  {
-    id: 0,
-    d: "M -420 760 C 20 520 460 280 900 60 C 1220 -90 1530 -190 1880 -290",
-    outer: "#78350F",
-    mid: "#D97706",
-    core: "#FDE68A",
-    outerOpacity: 0.07,
-    midOpacity: 0.14,
-    coreOpacity: 0.24,
-  },
-  {
-    id: 1,
-    d: "M -460 620 C -10 400 420 190 860 -20 C 1190 -150 1510 -230 1860 -320",
-    outer: "#78350F",
-    mid: "#F59E0B",
-    core: "#FEF3C7",
-    outerOpacity: 0.05,
-    midOpacity: 0.1,
-    coreOpacity: 0.18,
-  },
-] as const;
-
 const SESSIONS_PER_PAGE = 9;
 
 function normalizeText(value: string) {
@@ -160,17 +137,7 @@ export function OfficialTrainingsSection() {
   }, [bestMatch, sortedSessions]);
 
   return (
-    <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.08),transparent_42%),linear-gradient(180deg,#070707_0%,#040404_100%)] px-4 py-12 sm:px-6 lg:px-8 lg:py-14">
-      <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full opacity-70" preserveAspectRatio="none" viewBox="0 0 1440 900">
-        {STREAKS.map((streak) => (
-          <g key={streak.id}>
-            <path d={streak.d} stroke={streak.outer} strokeWidth="24" fill="none" opacity={streak.outerOpacity} />
-            <path d={streak.d} stroke={streak.mid} strokeWidth="9" fill="none" opacity={streak.midOpacity} />
-            <path d={streak.d} stroke={streak.core} strokeWidth="2.8" fill="none" opacity={streak.coreOpacity} />
-          </g>
-        ))}
-      </svg>
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(245,158,11,0.05),transparent_35%),radial-gradient(circle_at_80%_25%,rgba(245,158,11,0.04),transparent_35%)]" />
+    <section className="relative overflow-hidden px-4 py-12 sm:px-6 lg:px-8 lg:py-14">
       <div className="mx-auto max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
