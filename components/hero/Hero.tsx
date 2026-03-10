@@ -323,11 +323,11 @@ export function Hero() {
           <span className="text-sm font-semibold uppercase tracking-[0.08em] text-white [text-shadow:0_0_12px_rgba(255,255,255,0.18)] sm:text-base">
             Rental Karting Trophy
           </span>
-          <span className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/78 [text-shadow:0_0_8px_rgba(255,255,255,0.12)] sm:text-xs">
+          <span className="text-[0.8rem] font-semibold uppercase tracking-[0.2em] text-white/85 [text-shadow:0_0_10px_rgba(255,255,255,0.14)] sm:text-sm">
             Kartódromo Internacional Lucas Guerrero
           </span>
           <span className="mt-0.5 text-sm font-bold uppercase tracking-widest text-amber-400 sm:text-sm">
-            3–4 July 2026
+            3–4 Julio 2026
           </span>
         </motion.div>
 
