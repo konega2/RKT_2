@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 export interface LandingTrainingPilot {
   id: string;
   name: string;
+  photo: string;
 }
 
 export interface LandingTrainingSession {
@@ -36,6 +37,7 @@ export async function getLandingData(): Promise<LandingData> {
               select: {
                 id: true,
                 name: true,
+                photo: true,
               },
             },
           },
@@ -54,6 +56,7 @@ export async function getLandingData(): Promise<LandingData> {
       pilots: session.assignments.map((assignment) => ({
         id: assignment.pilot.id,
         name: assignment.pilot.name,
+        photo: assignment.pilot.photo || "/logos/logo_rkt.png",
       })),
     })),
   };
