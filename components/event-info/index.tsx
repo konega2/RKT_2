@@ -16,41 +16,34 @@ const NODES: TimelineNode[] = [
   {
     id: 0,
     label: "QUÉ ES",
-    heading: "El Campeonato",
-    body: "96 pilotos compitiendo en el campeonato de karting más premium de la temporada.",
-    detail: "Formato de carrera profesional con estructura de campeonato oficial.",
+    heading: "¿Qué es?",
+    body:
+      "El Rental Karting Trophy (RKT) es un evento de karting de alquiler creado para pilotos que buscan algo más que una simple carrera: competición real, igualdad en pista y un formato pensado para rendir al máximo.",
     accentIcon: "01",
   },
   {
     id: 1,
-    label: "CUÁNDO",
-    heading: "3 – 4 JULIO 2026",
-    body: "Viernes entrenamientos · Sábado carrera",
+    label: "CUÁNDO Y DÓNDE",
+    heading: "¿Cuándo y dónde?",
+    body: "3 y 4 de julio de 2026 · Kartódromo Internacional Lucas Guerrero · Chiva – Valencia, España",
     accentIcon: "02",
   },
   {
     id: 2,
-    label: "DÓNDE",
-    heading: "Chiva, Valencia, España",
-    body: "Kartódromo Internacional Lucas Guerrero",
-    detail: "Circuito homologado · Instalaciones profesionales",
+    label: "FORMATO",
+    heading: "Formato",
+    body:
+      "El RKT 2026 se disputará en varias fases durante el día de competición: 4 Heats clasificatorios (1 vuelta de clasificación + 6 vueltas de carrera), Semifinales (A, B, C y D) con 10 vueltas y 1 pase obligatorio por la Long Lap, y Finales (A, B, C y D) con 12 vueltas y 2 pases obligatorios por la Long Lap.",
+    detail: "Cada piloto disputará 6 carreras a lo largo del evento.",
     accentIcon: "03",
   },
   {
     id: 3,
-    label: "PRECIO",
-    heading: "Inversión Oficial",
-    body: "225 €",
-    detail: "125 € preinscripción por transferencia + 100 € el día del evento",
+    label: "PRECIO E INSCRIPCIÓN",
+    heading: "Precio e Inscripción",
+    body: "Inscripción total: 225€. La inscripción se realiza en dos fases: Pre-inscripción – 125€ (reserva de plaza y acceso al evento) y Pago final – 100€ (a abonar el día del evento en el circuito).",
+    detail: "Las plazas son limitadas y se asignan por orden de inscripción.",
     accentIcon: "04",
-  },
-  {
-    id: 4,
-    label: "INSCRIPCIÓN",
-    heading: "Reserva tu plaza",
-    body: "Asegura tu posición en la parrilla. Plazas limitadas.",
-    detail: "Proceso rápido y seguro. Confirmación inmediata.",
-    accentIcon: "05",
   },
 ];
 
@@ -527,7 +520,7 @@ export function EventInfoSection() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="py-4 text-center text-[10px] uppercase tracking-[0.22em] text-white/20"
+                  className="py-4 text-center text-xs uppercase tracking-[0.22em] text-white"
                 >
                   Selecciona un punto para ver los detalles
                 </motion.p>
