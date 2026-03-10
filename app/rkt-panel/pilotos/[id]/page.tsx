@@ -65,18 +65,31 @@ export default function RktPanelDriverDetailPage() {
 
     const reader = new FileReader();
     reader.onload = () => {
-      if (typeof reader.result === "string") {
-        updateField("photo", reader.result);
+      const photoData = reader.result;
+
+      if (typeof photoData === "string") {
+        setForm((current) => {
+          if (!current) {
+            return current;
+          }
+
+          const next: DriverRecord = { ...current, photo: photoData };
+
+          if (isEditing) {
+            setSaved(false);
+          } else {
+            void upsertDriver(next);
+            setSaved(true);
+          }
+
+          return next;
+        });
       }
     };
     reader.readAsDataURL(file);
   }
 
   function handleOpenPhotoPicker() {
-    if (!isEditing) {
-      return;
-    }
-
     const input = photoInputRef.current;
     if (!input) {
       return;
@@ -194,9 +207,8 @@ export default function RktPanelDriverDetailPage() {
                 <div className="flex flex-wrap items-center gap-3">
                   <button
                     type="button"
-                    disabled={!isEditing}
                     onClick={handleOpenPhotoPicker}
-                    className="rounded-2xl border border-amber-300/25 bg-amber-500/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-amber-100 transition hover:border-amber-300/50 hover:bg-amber-500/18 disabled:cursor-not-allowed disabled:opacity-45"
+                    className="rounded-2xl border border-amber-300/25 bg-amber-500/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-amber-100 transition hover:border-amber-300/50 hover:bg-amber-500/18"
                   >
                     Seleccionar archivo
                   </button>
