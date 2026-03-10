@@ -32,8 +32,6 @@ const NAV_ITEMS = [
   { href: "/rkt-panel/entrenamientos", label: "Entrenamientos", icon: "helmet" },
 ] as const;
 
-const FUTURE_ITEMS = ["Carreras"] as const;
-
 function Icon({ kind }: { kind: "grid" | "helmet" | "logout" }) {
   if (kind === "helmet") {
     return (
@@ -120,22 +118,6 @@ export function PanelShell({ children, heading, kicker }: { children: ReactNode;
               );
             })}
 
-            <div className="pt-3">
-              <p className="px-2 text-[10px] uppercase tracking-[0.32em] text-white/25">Próximamente</p>
-              <div className="mt-2 space-y-2">
-                {FUTURE_ITEMS.map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-center justify-between rounded-2xl border border-white/5 bg-white/[0.02] px-4 py-3 text-sm text-white/40"
-                  >
-                    <span>{item}</span>
-                    <span className="rounded-full border border-amber-500/15 px-2 py-0.5 text-[10px] uppercase tracking-[0.22em] text-amber-300/45">
-                      Futuro
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </nav>
 
           <div className="mt-auto px-4 pb-5 lg:px-6 lg:pt-6">

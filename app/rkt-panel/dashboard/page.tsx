@@ -69,9 +69,16 @@ export default function RktPanelDashboardPage() {
               <span className="text-amber-300">→</span>
             </Link>
 
-            <div className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-4 text-sm text-white/50">
-              Entrenamientos y carreras estarán disponibles en próximas fases del panel.
-            </div>
+            <Link
+              href="/rkt-panel/entrenamientos"
+              className="flex items-center justify-between rounded-2xl border border-amber-300/20 bg-black/45 px-4 py-4 text-white transition hover:border-amber-300/45 hover:bg-black/60"
+            >
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.14em]">Entrenamientos</p>
+                <p className="mt-1 text-xs text-white/45">Asigna pilotos por sesión y controla plazas en tiempo real.</p>
+              </div>
+              <span className="text-amber-300">→</span>
+            </Link>
           </div>
         </motion.section>
       </div>
