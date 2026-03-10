@@ -472,10 +472,8 @@ export function EventInfoSection() {
             transition={{ duration: 0.75, delay: 0.18, ease: EASE }}
             className="mb-4 text-4xl font-black uppercase leading-none tracking-tight text-white md:text-5xl lg:text-6xl"
           >
-            ESTRUCTURA
-            <br />
             <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, #D97706 0%, #FDE68A 45%, #F59E0B 100%)" }}>
-              DEL EVENTO
+              INFORMACION SOBRE RKT
             </span>
           </motion.h2>
 
@@ -483,7 +481,7 @@ export function EventInfoSection() {
             initial={{ opacity: 0, y: 14 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.28, ease: EASE }}
-            className="max-w-sm text-sm leading-relaxed text-white/70"
+            className="max-w-md text-base leading-relaxed text-white/78 md:text-lg"
           >
             Todo lo que necesitas saber sobre el RKT en detalle aquí.
           </motion.p>
