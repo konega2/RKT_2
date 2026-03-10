@@ -31,6 +31,7 @@ export default function RktPanelDriverDetailPage() {
   const [saved, setSaved] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const photoInputRef = useRef<HTMLInputElement>(null);
+  const defaultPhoto = "/logos/logo_rkt.png";
 
   useEffect(() => {
     if (driver) {
@@ -97,6 +98,25 @@ export default function RktPanelDriverDetailPage() {
 
     input.value = "";
     input.click();
+  }
+
+  function handleRemovePhoto() {
+    setForm((current) => {
+      if (!current || current.photo === defaultPhoto) {
+        return current;
+      }
+
+      const next: DriverRecord = { ...current, photo: defaultPhoto };
+
+      if (isEditing) {
+        setSaved(false);
+      } else {
+        void upsertDriver(next);
+        setSaved(true);
+      }
+
+      return next;
+    });
   }
 
   function handleSave() {
@@ -208,8 +228,16 @@ export default function RktPanelDriverDetailPage() {
                   >
                     Seleccionar archivo
                   </button>
+                  <button
+                    type="button"
+                    onClick={handleRemovePhoto}
+                    disabled={form.photo === defaultPhoto}
+                    className="rounded-2xl border border-red-500/25 bg-red-500/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-red-200 transition hover:border-red-400/50 hover:bg-red-500/18 disabled:cursor-not-allowed disabled:opacity-45"
+                  >
+                    Eliminar imagen
+                  </button>
                   <span className="text-sm text-white/45">
-                    {form.photo === "/logos/logo_rkt.png"
+                    {form.photo === defaultPhoto
                       ? "Usando imagen por defecto"
                       : "Imagen personalizada cargada"}
                   </span>
