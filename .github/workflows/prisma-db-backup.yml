@@ -1,0 +1,56 @@
+name: Prisma DB Backup
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *"
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Create database backups
+        env:
+          PRISMA_DATABASE_URL: ${{ secrets.PRISMA_DATABASE_URL }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${PRISMA_DATABASE_URL:-}" ]; then
+            echo "Missing PRISMA_DATABASE_URL secret"
+            exit 1
+          fi
+
+          TIMESTAMP="$(date -u +'%Y%m%d_%H%M%S')"
+          mkdir -p backups
+
+          pg_dump "$PRISMA_DATABASE_URL" \
+            --format=custom \
+            --no-owner \
+            --no-privileges \
+            --file "backups/prisma_full_${TIMESTAMP}.dump"
+
+          pg_dump "$PRISMA_DATABASE_URL" \
+            --data-only \
+            --inserts \
+            --table='"Pilot"' \
+            --table='"Comment"' \
+            --table='"TrainingSession"' \
+            --table='"TrainingAssignment"' \
+            --file "backups/prisma_pilots_training_${TIMESTAMP}.sql"
+
+      - name: Upload backup artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: prisma-db-backup-${{ github.run_id }}
+          path: backups/*
+          retention-days: 30
+          if-no-files-found: error
