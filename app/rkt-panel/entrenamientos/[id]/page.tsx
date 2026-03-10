@@ -57,7 +57,7 @@ export default function RktPanelTrainingSessionDetailPage() {
     const normalized = query.trim().toLowerCase();
 
     return drivers
-      .filter((pilot) => pilot.status === "Activo")
+      .filter((pilot) => pilot.status === "CONFIRMED")
       .filter((pilot) => !assignedPilotIds.has(pilot.id))
       .filter((pilot) => pilot.name.toLowerCase().includes(normalized));
   }, [assignedPilotIds, drivers, query]);

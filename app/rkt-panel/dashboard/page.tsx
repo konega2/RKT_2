@@ -9,12 +9,14 @@ import { useDriverStore } from "@/components/rkt-panel/use-driver-store";
 export default function RktPanelDashboardPage() {
   const { drivers, loaded } = useDriverStore();
 
-  const activeDrivers = drivers.filter((driver) => driver.status === "Activo").length;
+  const confirmedDrivers = drivers.filter((driver) => driver.status === "CONFIRMED").length;
+  const pendingDrivers = drivers.filter((driver) => driver.status === "PENDING").length;
   const pendingDocs = drivers.filter(
     (driver) =>
-      !driver.documentation.imageAccepted ||
-      !driver.documentation.insuranceAccepted ||
-      !driver.documentation.liabilitySigned,
+      driver.status === "CONFIRMED" &&
+      (!driver.documentation.imageAccepted ||
+        !driver.documentation.insuranceAccepted ||
+        !driver.documentation.liabilitySigned),
   ).length;
 
   return (
@@ -29,13 +31,14 @@ export default function RktPanelDashboardPage() {
           <p className="text-[11px] uppercase tracking-[0.32em] text-amber-300/70">Centro de control</p>
           <h2 className="mt-3 text-2xl font-black uppercase tracking-[0.08em] text-white">Panel de gestión RKT</h2>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-white/60">
-            Administra pilotos confirmados, revisa documentación interna y mantén organizado el flujo operativo del campeonato desde un único panel.
+            Revisa pre-inscripciones, aprueba pilotos, organiza entrenamientos y mantén el flujo operativo del campeonato desde un único panel.
           </p>
 
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {[
               { label: "Pilotos totales", value: loaded ? drivers.length : "--" },
-              { label: "Activos", value: loaded ? activeDrivers : "--" },
+              { label: "Pendientes", value: loaded ? pendingDrivers : "--" },
+              { label: "Confirmados", value: loaded ? confirmedDrivers : "--" },
               { label: "Documentación pendiente", value: loaded ? pendingDocs : "--" },
             ].map((stat, index) => (
               <div
@@ -58,6 +61,17 @@ export default function RktPanelDashboardPage() {
         >
           <p className="text-[11px] uppercase tracking-[0.32em] text-amber-300/70">Accesos rápidos</p>
           <div className="mt-5 space-y-3">
+            <Link
+              href="/rkt-panel/pre-inscripciones"
+              className="flex items-center justify-between rounded-2xl border border-amber-300/20 bg-black/45 px-4 py-4 text-white transition hover:border-amber-300/45 hover:bg-black/60"
+            >
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.14em]">Pre-inscripciones</p>
+                <p className="mt-1 text-xs text-white/45">Aprueba o rechaza pilotos antes de pasarlos a confirmados.</p>
+              </div>
+              <span className="text-amber-300">→</span>
+            </Link>
+
             <Link
               href="/rkt-panel/pilotos"
               className="flex items-center justify-between rounded-2xl border border-amber-300/20 bg-black/45 px-4 py-4 text-white transition hover:border-amber-300/45 hover:bg-black/60"

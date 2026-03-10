@@ -81,6 +81,8 @@ export function serializePilot(pilot: PilotWithComments): DriverRecord {
 }
 
 export function pilotCreateInputFromRecord(record: DriverRecord) {
+  const isConfirmed = record.status === "CONFIRMED";
+
   return {
     name: record.name,
     age: record.age,
@@ -94,8 +96,8 @@ export function pilotCreateInputFromRecord(record: DriverRecord) {
     insuranceAccepted: record.documentation.insuranceAccepted,
     liabilitySigned: record.documentation.liabilitySigned,
     imageAccepted: record.documentation.imageAccepted,
-    confirmedAt: new Date(record.history.confirmedAt),
-    confirmedBy: record.history.confirmedBy,
+    confirmedAt: isConfirmed ? new Date(record.history.confirmedAt) : null,
+    confirmedBy: isConfirmed ? record.history.confirmedBy : "Pendiente",
     createdAt: new Date(record.history.registeredAt),
     comments: {
       create: record.comments.map((comment) => ({

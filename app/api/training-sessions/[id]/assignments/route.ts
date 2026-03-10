@@ -20,6 +20,19 @@ export async function POST(request: Request, { params }: { params: { id: string 
       return NextResponse.json({ error: "Sesión no encontrada." }, { status: 404 });
     }
 
+    const pilot = await prisma.pilot.findUnique({
+      where: { id: body.pilotId },
+      select: { id: true, status: true },
+    });
+
+    if (!pilot) {
+      return NextResponse.json({ error: "Piloto no encontrado." }, { status: 404 });
+    }
+
+    if (pilot.status !== "CONFIRMED") {
+      return NextResponse.json({ error: "Solo se pueden asignar pilotos confirmados." }, { status: 409 });
+    }
+
     const alreadyAssigned = session.assignments.some((assignment) => assignment.pilotId === body.pilotId);
 
     if (alreadyAssigned) {

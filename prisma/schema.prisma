@@ -8,6 +8,12 @@ datasource db {
   directUrl = env("PRISMA_DATABASE_URL")
 }
 
+enum PilotStatus {
+  PENDING
+  CONFIRMED
+  REJECTED
+}
+
 model Pilot {
   id                String    @id @default(cuid())
   name              String
@@ -16,7 +22,7 @@ model Pilot {
   phone             String
   email             String
   category          String
-  status            String
+  status            PilotStatus @default(PENDING)
   photo             String?
   internalNotes     String    @default("")
   insuranceAccepted Boolean   @default(false)

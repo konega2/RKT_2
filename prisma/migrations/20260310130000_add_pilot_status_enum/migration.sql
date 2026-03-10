@@ -1,0 +1,18 @@
+CREATE TYPE "PilotStatus" AS ENUM ('PENDING', 'CONFIRMED', 'REJECTED');
+
+ALTER TABLE "Pilot"
+ALTER COLUMN "status" DROP DEFAULT;
+
+ALTER TABLE "Pilot"
+ALTER COLUMN "status" TYPE "PilotStatus"
+USING (
+  CASE
+    WHEN "status" = 'PENDING' THEN 'PENDING'
+    WHEN "status" = 'REJECTED' THEN 'REJECTED'
+    WHEN "status" IN ('Activo', 'Inactivo', 'CONFIRMED') THEN 'CONFIRMED'
+    ELSE 'PENDING'
+  END
+)::"PilotStatus";
+
+ALTER TABLE "Pilot"
+ALTER COLUMN "status" SET DEFAULT 'PENDING';

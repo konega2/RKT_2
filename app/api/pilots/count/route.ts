@@ -8,7 +8,7 @@ export const revalidate = 0;
 export async function GET() {
   try {
     const confirmedPilots = await prisma.pilot.count({
-      where: { status: "Activo" },
+      where: { status: "CONFIRMED" },
     });
 
     return NextResponse.json(

@@ -28,16 +28,28 @@ const STREAKS = [
 
 const NAV_ITEMS = [
   { href: "/rkt-panel/dashboard", label: "Dashboard", icon: "grid" },
+  { href: "/rkt-panel/pre-inscripciones", label: "Pre-inscripciones", icon: "clipboard" },
   { href: "/rkt-panel/pilotos", label: "Pilotos confirmados", icon: "helmet" },
   { href: "/rkt-panel/entrenamientos", label: "Entrenamientos", icon: "helmet" },
 ] as const;
 
-function Icon({ kind }: { kind: "grid" | "helmet" | "logout" }) {
+function Icon({ kind }: { kind: "grid" | "helmet" | "clipboard" | "logout" }) {
   if (kind === "helmet") {
     return (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-4 w-4">
         <path d="M4 13a8 8 0 1 1 16 0v3h-5l-2 3H7a3 3 0 0 1-3-3v-3Z" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M9 9h6" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (kind === "clipboard") {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-4 w-4">
+        <path d="M9 4h6" strokeLinecap="round" />
+        <path d="M9 3h6a2 2 0 0 1 2 2v1H7V5a2 2 0 0 1 2-2Z" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M7 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-1" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M8 11h8M8 15h5" strokeLinecap="round" />
       </svg>
     );
   }

@@ -32,6 +32,8 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     const pilot = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.comment.deleteMany({ where: { pilotId: params.id } });
 
+      const isConfirmed = body.status === "CONFIRMED";
+
       return tx.pilot.update({
         where: { id: params.id },
         data: {
@@ -47,8 +49,8 @@ export async function PUT(request: Request, { params }: { params: { id: string }
           insuranceAccepted: body.documentation.insuranceAccepted,
           liabilitySigned: body.documentation.liabilitySigned,
           imageAccepted: body.documentation.imageAccepted,
-          confirmedAt: new Date(body.history.confirmedAt),
-          confirmedBy: body.history.confirmedBy,
+          confirmedAt: isConfirmed ? new Date(body.history.confirmedAt) : null,
+          confirmedBy: isConfirmed ? body.history.confirmedBy : "Pendiente",
           comments: {
             create: body.comments.map((comment) => ({
               id: comment.id,

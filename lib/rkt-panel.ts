@@ -1,4 +1,4 @@
-export type DriverStatus = "Activo" | "Inactivo";
+export type DriverStatus = "PENDING" | "CONFIRMED" | "REJECTED";
 export type DriverCategory = "Senior" | "Junior" | "Pro" | "Amateur";
 
 export interface DriverComment {
@@ -53,7 +53,12 @@ export const PANEL_CREDENTIALS = {
 } as const;
 
 export const DRIVER_CATEGORIES: DriverCategory[] = ["Senior", "Junior", "Pro", "Amateur"];
-export const DRIVER_STATUSES: DriverStatus[] = ["Activo", "Inactivo"];
+export const DRIVER_STATUSES: DriverStatus[] = ["PENDING", "CONFIRMED", "REJECTED"];
+export const DRIVER_STATUS_LABELS: Record<DriverStatus, string> = {
+  PENDING: "Preinscrito",
+  CONFIRMED: "Confirmado",
+  REJECTED: "Rechazado",
+};
 
 const DEFAULT_PHOTO = "/logos/logo_rkt.png";
 
@@ -96,7 +101,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     phone: "+34 612 345 678",
     email: "alex.martin@rkt.local",
     category: "Pro",
-    status: "Activo",
+    status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
       insuranceAccepted: true,
@@ -125,7 +130,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     phone: "+34 622 111 090",
     email: "david.perez@rkt.local",
     category: "Senior",
-    status: "Activo",
+    status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
       insuranceAccepted: true,
@@ -148,7 +153,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     phone: "+34 633 888 220",
     email: "jaime.ruiz@rkt.local",
     category: "Junior",
-    status: "Activo",
+    status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
       insuranceAccepted: true,
@@ -177,7 +182,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     phone: "+34 644 222 110",
     email: "lucas.ferrer@rkt.local",
     category: "Amateur",
-    status: "Inactivo",
+    status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
       insuranceAccepted: false,
@@ -200,7 +205,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     phone: "+34 655 123 456",
     email: "sergio.moya@rkt.local",
     category: "Pro",
-    status: "Activo",
+    status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
       insuranceAccepted: true,
@@ -223,7 +228,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     phone: "+34 666 777 888",
     email: "marc.lopez@rkt.local",
     category: "Senior",
-    status: "Activo",
+    status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
       insuranceAccepted: true,
@@ -246,7 +251,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     phone: "+34 677 456 789",
     email: "raul.gomez@rkt.local",
     category: "Amateur",
-    status: "Activo",
+    status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
       insuranceAccepted: true,
@@ -269,7 +274,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     phone: "+34 688 900 321",
     email: "ivan.castro@rkt.local",
     category: "Junior",
-    status: "Activo",
+    status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
       insuranceAccepted: true,

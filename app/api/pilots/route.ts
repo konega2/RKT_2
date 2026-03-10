@@ -25,10 +25,14 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as DriverRecord;
+    const record: DriverRecord = {
+      ...body,
+      status: body.status ?? "PENDING",
+    };
 
     const pilot = await prisma.pilot.create({
       data: {
-        ...pilotCreateInputFromRecord(body),
+        ...pilotCreateInputFromRecord(record),
       },
       include: { comments: true },
     });

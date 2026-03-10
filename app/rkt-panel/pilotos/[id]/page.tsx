@@ -9,6 +9,7 @@ import { PanelShell } from "@/components/rkt-panel/panel-shell";
 import { useDriverStore } from "@/components/rkt-panel/use-driver-store";
 import {
   DRIVER_CATEGORIES,
+  DRIVER_STATUS_LABELS,
   DRIVER_STATUSES,
   formatPanelDate,
   type DriverCategory,
@@ -336,7 +337,7 @@ export default function RktPanelDriverDetailPage() {
                   className="w-full rounded-2xl border border-amber-500/15 bg-black/35 px-4 py-3 text-sm text-white outline-none focus:border-amber-400/45 disabled:cursor-not-allowed disabled:opacity-55"
                 >
                   {DRIVER_STATUSES.map((option) => (
-                    <option key={option} value={option}>{option}</option>
+                    <option key={option} value={option}>{DRIVER_STATUS_LABELS[option]}</option>
                   ))}
                 </select>
               </label>
