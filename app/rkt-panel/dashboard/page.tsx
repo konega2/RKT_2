@@ -26,11 +26,11 @@ export default function RktPanelDashboardPage() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.05 }}
-          className="rounded-[28px] border border-amber-500/15 bg-white/[0.03] p-6 shadow-[0_16px_60px_rgba(0,0,0,0.28)] backdrop-blur-xl md:p-8"
+          className="rounded-[28px] border border-amber-500/25 bg-white/[0.05] p-6 shadow-[0_16px_60px_rgba(0,0,0,0.28)] backdrop-blur-xl md:p-8"
         >
-          <p className="text-[11px] uppercase tracking-[0.32em] text-amber-300/70">Centro de control</p>
-          <h2 className="mt-3 text-2xl font-black uppercase tracking-[0.08em] text-white">Panel de gestión RKT</h2>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-white/60">
+          <p className="text-[11px] uppercase tracking-[0.32em] text-amber-300/85">Centro de control</p>
+          <h2 className="mt-3 text-2xl font-black uppercase tracking-[0.08em] text-white [text-shadow:0_0_12px_rgba(255,255,255,0.12)]">Panel de gestión RKT</h2>
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-white/82">
             Revisa pre-inscripciones, aprueba pilotos, organiza entrenamientos y mantén el flujo operativo del campeonato desde un único panel.
           </p>
 
@@ -43,10 +43,10 @@ export default function RktPanelDashboardPage() {
             ].map((stat, index) => (
               <div
                 key={stat.label}
-                className="rounded-2xl border border-amber-500/10 bg-black/40 p-4"
+                className="rounded-2xl border border-amber-500/20 bg-black/30 p-4"
                 style={{ boxShadow: `inset 0 0 0 1px rgba(245,158,11,${0.03 + index * 0.02})` }}
               >
-                <p className="text-[11px] uppercase tracking-[0.26em] text-white/35">{stat.label}</p>
+                <p className="text-[11px] uppercase tracking-[0.26em] text-white/60">{stat.label}</p>
                 <p className="mt-3 text-3xl font-black text-amber-100">{stat.value}</p>
               </div>
             ))}
@@ -57,39 +57,39 @@ export default function RktPanelDashboardPage() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.12 }}
-          className="rounded-[28px] border border-amber-500/15 bg-gradient-to-b from-amber-500/10 to-transparent p-6 backdrop-blur-xl"
+          className="rounded-[28px] border border-amber-500/25 bg-gradient-to-b from-amber-500/14 to-transparent p-6 backdrop-blur-xl"
         >
-          <p className="text-[11px] uppercase tracking-[0.32em] text-amber-300/70">Accesos rápidos</p>
+          <p className="text-[11px] uppercase tracking-[0.32em] text-amber-300/85">Accesos rápidos</p>
           <div className="mt-5 space-y-3">
             <Link
               href="/rkt-panel/pre-inscripciones"
-              className="flex items-center justify-between rounded-2xl border border-amber-300/20 bg-black/45 px-4 py-4 text-white transition hover:border-amber-300/45 hover:bg-black/60"
+              className="flex items-center justify-between rounded-2xl border border-amber-300/25 bg-black/35 px-4 py-4 text-white transition hover:border-amber-300/50 hover:bg-black/45"
             >
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.14em]">Pre-inscripciones</p>
-                <p className="mt-1 text-xs text-white/45">Aprueba o rechaza pilotos antes de pasarlos a confirmados.</p>
+                <p className="mt-1 text-xs text-white/72">Aprueba o rechaza pilotos antes de pasarlos a confirmados.</p>
               </div>
               <span className="text-amber-300">→</span>
             </Link>
 
             <Link
               href="/rkt-panel/pilotos"
-              className="flex items-center justify-between rounded-2xl border border-amber-300/20 bg-black/45 px-4 py-4 text-white transition hover:border-amber-300/45 hover:bg-black/60"
+              className="flex items-center justify-between rounded-2xl border border-amber-300/25 bg-black/35 px-4 py-4 text-white transition hover:border-amber-300/50 hover:bg-black/45"
             >
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.14em]">Pilotos confirmados</p>
-                <p className="mt-1 text-xs text-white/45">Gestiona altas, filtros y fichas individuales.</p>
+                <p className="mt-1 text-xs text-white/72">Gestiona altas, filtros y fichas individuales.</p>
               </div>
               <span className="text-amber-300">→</span>
             </Link>
 
             <Link
               href="/rkt-panel/entrenamientos"
-              className="flex items-center justify-between rounded-2xl border border-amber-300/20 bg-black/45 px-4 py-4 text-white transition hover:border-amber-300/45 hover:bg-black/60"
+              className="flex items-center justify-between rounded-2xl border border-amber-300/25 bg-black/35 px-4 py-4 text-white transition hover:border-amber-300/50 hover:bg-black/45"
             >
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.14em]">Entrenamientos</p>
-                <p className="mt-1 text-xs text-white/45">Asigna pilotos por sesión y controla plazas en tiempo real.</p>
+                <p className="mt-1 text-xs text-white/72">Asigna pilotos por sesión y controla plazas en tiempo real.</p>
               </div>
               <span className="text-amber-300">→</span>
             </Link>

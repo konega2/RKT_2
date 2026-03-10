@@ -95,14 +95,14 @@ export function PanelShell({ children, heading, kicker }: { children: ReactNode;
     <div className="relative min-h-screen overflow-hidden bg-black text-white">
       <PanelBackdrop />
       <div className="relative z-10 flex min-h-screen flex-col lg:flex-row">
-        <aside className="border-b border-amber-500/10 bg-black/75 backdrop-blur-xl lg:w-[300px] lg:border-b-0 lg:border-r">
+        <aside className="border-b border-amber-500/20 bg-black/65 backdrop-blur-xl lg:w-[300px] lg:border-b-0 lg:border-r">
           <div className="flex items-center justify-between px-6 py-6 lg:block">
             <div className="flex items-center gap-4">
               <div className="relative h-12 w-12 overflow-hidden rounded-xl border border-amber-400/20 bg-amber-500/5">
                 <Image src="/logos/logo_rkt.png" alt="RKT" fill className="object-contain p-1.5" />
               </div>
               <div>
-                <p className="text-[11px] uppercase tracking-[0.28em] text-amber-300/70">RKT Internal</p>
+                <p className="text-[11px] uppercase tracking-[0.28em] text-amber-300/85">RKT Internal</p>
                 <p className="text-lg font-semibold text-white">Rental Karting Trophy</p>
               </div>
             </div>
@@ -118,8 +118,8 @@ export function PanelShell({ children, heading, kicker }: { children: ReactNode;
                   className={cn(
                     "flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm transition-all duration-300",
                     active
-                      ? "border-amber-300/30 bg-amber-500/10 text-amber-100 shadow-[0_0_24px_rgba(245,158,11,0.08)]"
-                      : "border-transparent bg-white/[0.03] text-white/72 hover:border-amber-400/15 hover:bg-white/[0.05] hover:text-white",
+                      ? "border-amber-300/40 bg-amber-500/15 text-amber-50 shadow-[0_0_28px_rgba(245,158,11,0.14)]"
+                      : "border-transparent bg-white/[0.05] text-white/90 hover:border-amber-400/20 hover:bg-white/[0.08] hover:text-white",
                   )}
                 >
                   <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-black/40 text-amber-300">
@@ -151,8 +151,8 @@ export function PanelShell({ children, heading, kicker }: { children: ReactNode;
             transition={{ duration: 0.45 }}
             className="mb-8 flex flex-col gap-3"
           >
-            <p className="text-[11px] uppercase tracking-[0.34em] text-amber-300/70">{kicker}</p>
-            <h1 className="text-3xl font-black uppercase tracking-[0.06em] text-white md:text-4xl">{heading}</h1>
+            <p className="text-[11px] uppercase tracking-[0.34em] text-amber-300/85">{kicker}</p>
+            <h1 className="text-3xl font-black uppercase tracking-[0.06em] text-white [text-shadow:0_0_14px_rgba(255,255,255,0.14)] md:text-4xl">{heading}</h1>
           </motion.div>
 
           {children}
@@ -165,17 +165,17 @@ export function PanelShell({ children, heading, kicker }: { children: ReactNode;
 export function PanelBackdrop() {
   return (
     <>
-      <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full opacity-70" preserveAspectRatio="none" viewBox="0 0 1440 900">
+      <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full opacity-90" preserveAspectRatio="none" viewBox="0 0 1440 900">
         {STREAKS.map((streak) => (
           <g key={streak.id}>
-            <path d={streak.d} stroke={streak.outer} strokeWidth="24" fill="none" opacity="0.08" />
-            <path d={streak.d} stroke={streak.mid} strokeWidth="9" fill="none" opacity="0.14" />
-            <path d={streak.d} stroke={streak.core} strokeWidth="2.8" fill="none" opacity="0.26" />
+            <path d={streak.d} stroke={streak.outer} strokeWidth="24" fill="none" opacity="0.11" />
+            <path d={streak.d} stroke={streak.mid} strokeWidth="9" fill="none" opacity="0.2" />
+            <path d={streak.d} stroke={streak.core} strokeWidth="2.8" fill="none" opacity="0.34" />
           </g>
         ))}
       </svg>
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.08),transparent_38%),radial-gradient(circle_at_20%_20%,rgba(245,158,11,0.05),transparent_32%)]" />
-      <div className="pointer-events-none absolute inset-0 scanlines opacity-[0.04]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.14),transparent_44%),radial-gradient(circle_at_20%_20%,rgba(245,158,11,0.08),transparent_36%)]" />
+      <div className="pointer-events-none absolute inset-0 scanlines opacity-[0.03]" />
     </>
   );
 }
