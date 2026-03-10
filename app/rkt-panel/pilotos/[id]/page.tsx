@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -40,7 +40,6 @@ export default function RktPanelDriverDetailPage() {
   const [commentText, setCommentText] = useState("");
   const [saved, setSaved] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (driver) {
@@ -177,22 +176,25 @@ export default function RktPanelDriverDetailPage() {
               <label className="block space-y-2">
                 <span className="text-[11px] uppercase tracking-[0.24em] text-amber-200/75">Actualizar foto</span>
                 <input
-                  ref={fileInputRef}
+                  id="pilot-photo-upload"
                   type="file"
                   accept="image/*"
                   disabled={!isEditing}
                   onChange={handlePhotoChange}
-                  className="hidden"
+                  className="sr-only"
                 />
                 <div className="flex flex-wrap items-center gap-3">
-                  <button
-                    type="button"
-                    disabled={!isEditing}
-                    onClick={() => fileInputRef.current?.click()}
-                    className="rounded-2xl border border-amber-300/25 bg-amber-500/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-amber-100 transition hover:border-amber-300/50 hover:bg-amber-500/18 disabled:cursor-not-allowed disabled:opacity-45"
+                  <label
+                    htmlFor="pilot-photo-upload"
+                    aria-disabled={!isEditing}
+                    className="rounded-2xl border border-amber-300/25 bg-amber-500/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-amber-100 transition hover:border-amber-300/50 hover:bg-amber-500/18"
+                    style={{
+                      cursor: isEditing ? "pointer" : "not-allowed",
+                      opacity: isEditing ? 1 : 0.45,
+                    }}
                   >
                     Seleccionar archivo
-                  </button>
+                  </label>
                   <span className="text-sm text-white/45">
                     {form.photo === "/logos/logo_rkt.png" ? "Usando imagen por defecto" : "Imagen personalizada cargada"}
                   </span>
