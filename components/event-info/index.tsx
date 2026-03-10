@@ -452,7 +452,7 @@ export function EventInfoSection() {
             transition={{ duration: 0.7, ease: EASE }}
             className="mb-5 inline-block text-[10px] font-bold uppercase tracking-[0.28em] text-amber-500"
           >
-            INFO DEL EVENTO
+            INFORMACION SOBRE RKT
           </motion.span>
 
           <motion.div
@@ -485,7 +485,7 @@ export function EventInfoSection() {
             transition={{ duration: 0.7, delay: 0.28, ease: EASE }}
             className="max-w-sm text-sm leading-relaxed text-white/70"
           >
-            Todo lo que necesitas saber sobre el campeonato, en un solo lugar.
+            Todo lo que necesitas saber sobre el RKT en detalle aquí.
           </motion.p>
         </div>
 
