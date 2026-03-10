@@ -4,19 +4,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-interface TrainingPilot {
-  id: string;
-  name: string;
-  photo: string;
-}
-
-interface PublicTrainingSession {
-  id: string;
-  time: string;
-  name: string;
-  maxPilots: number;
-  pilots: TrainingPilot[];
-}
+import type { LandingTrainingSession } from "@/lib/landing-data";
 
 const SESSIONS_PER_PAGE = 9;
 
@@ -47,41 +35,14 @@ function occupancyColor(assigned: number, maxPilots: number) {
   return "text-emerald-300";
 }
 
-export function OfficialTrainingsSection() {
-  const [sessions, setSessions] = useState<PublicTrainingSession[]>([]);
-  const [loading, setLoading] = useState(true);
+export function OfficialTrainingsSection({ initialSessions }: { initialSessions: LandingTrainingSession[] }) {
   const [openSessionId, setOpenSessionId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
 
-  useEffect(() => {
-    async function loadSessions() {
-      try {
-        const response = await fetch("/api/training-sessions", { cache: "no-store" });
-        const data = (await response.json()) as PublicTrainingSession[];
-
-        if (Array.isArray(data)) {
-          setSessions(data);
-        }
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    void loadSessions();
-
-    const intervalId = window.setInterval(() => {
-      void loadSessions();
-    }, 10000);
-
-    return () => {
-      window.clearInterval(intervalId);
-    };
-  }, []);
-
   const sortedSessions = useMemo(
-    () => [...sessions].sort((left, right) => toMinutes(left.time) - toMinutes(right.time)),
-    [sessions],
+    () => [...initialSessions].sort((left, right) => toMinutes(left.time) - toMinutes(right.time)),
+    [initialSessions],
   );
 
   const totalPages = useMemo(
@@ -105,7 +66,7 @@ export function OfficialTrainingsSection() {
       return null;
     }
 
-    const pilots = sessions
+    const pilots = initialSessions
       .flatMap((session) => session.pilots)
       .filter((pilot, index, array) => array.findIndex((item) => item.id === pilot.id) === index)
       .filter((pilot) => normalizeText(pilot.name).includes(normalizedQuery));
@@ -126,7 +87,7 @@ export function OfficialTrainingsSection() {
     });
 
     return sortedPilots[0];
-  }, [query, sessions]);
+  }, [query, initialSessions]);
 
   const sessionsForPilot = useMemo(() => {
     if (!bestMatch) {
@@ -198,8 +159,8 @@ export function OfficialTrainingsSection() {
               <span className="text-right">Ocupación</span>
             </div>
 
-            {loading ? (
-              <div className="px-4 py-5 text-sm text-white/75">Cargando entrenamientos...</div>
+            {paginatedSessions.length === 0 ? (
+              <div className="px-4 py-5 text-sm text-white/75">No hay entrenamientos disponibles.</div>
             ) : (
               paginatedSessions.map((session) => {
                 const assigned = session.pilots.length;
@@ -253,7 +214,7 @@ export function OfficialTrainingsSection() {
             )}
           </div>
 
-          {!loading && sortedSessions.length > SESSIONS_PER_PAGE ? (
+          {sortedSessions.length > SESSIONS_PER_PAGE ? (
             <div className="mt-4 flex items-center justify-end gap-2">
               <button
                 type="button"

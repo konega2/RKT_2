@@ -65,30 +65,8 @@ function AnimatedCounter({ target }: { target: number }) {
   return <span ref={ref}>{current}</span>;
 }
 
-export function FinalCtaSection() {
-  const [confirmedPilots, setConfirmedPilots] = useState<number | null>(null);
+export function FinalCtaSection({ initialConfirmedPilots }: { initialConfirmedPilots: number }) {
   const [countdown, setCountdown] = useState<Countdown | null>(null);
-
-  // Fetch pilot count
-  useEffect(() => {
-    let cancelled = false;
-    const load = async () => {
-      try {
-        const res = await fetch("/api/pilots/count", { cache: "no-store" });
-        if (!res.ok) return;
-        const data = await res.json();
-        if (!cancelled) setConfirmedPilots(data.confirmedPilots ?? 0);
-      } catch {
-        // silently ignore
-      }
-    };
-    load();
-    const interval = setInterval(load, 15_000);
-    return () => {
-      cancelled = true;
-      clearInterval(interval);
-    };
-  }, []);
 
   // Countdown tick — initialized client-side only to avoid SSR hydration mismatch
   useEffect(() => {
@@ -97,7 +75,7 @@ export function FinalCtaSection() {
     return () => clearInterval(id);
   }, []);
 
-  const pilots = confirmedPilots ?? 0;
+  const pilots = initialConfirmedPilots;
   const progressPct = Math.min((pilots / MAX_PILOTS) * 100, 100);
 
   return (
