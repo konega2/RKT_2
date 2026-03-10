@@ -333,16 +333,16 @@ export function Hero() {
         </motion.div>
 
         <motion.div variants={buttonReveal} className="mt-7 md:mt-8">
-          <button
-            type="button"
-            className="group relative overflow-hidden rounded-md border border-amber-500/30 bg-amber-400 px-10 py-3 text-sm font-black uppercase tracking-widest text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-300 hover:shadow-[0_0_30px_rgba(255,200,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black md:px-14 md:py-4 md:text-base"
+          <a
+            href="#final-cta"
+            className="group relative inline-block overflow-hidden rounded-md border border-amber-500/30 bg-amber-400 px-10 py-3 text-sm font-black uppercase tracking-widest text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-300 hover:shadow-[0_0_30px_rgba(255,200,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black md:px-14 md:py-4 md:text-base"
           >
             <span
               aria-hidden="true"
               className="absolute inset-0 -translate-x-full skew-x-[-18deg] bg-white/15 transition-transform duration-700 group-hover:translate-x-full"
             />
             <span className="relative">Reserva tu plaza en la parrilla</span>
-          </button>
+          </a>
         </motion.div>
 
       </motion.div>
