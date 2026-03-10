@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -30,6 +30,7 @@ export default function RktPanelDriverDetailPage() {
   const [commentText, setCommentText] = useState("");
   const [saved, setSaved] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const photoInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (driver) {
@@ -69,6 +70,24 @@ export default function RktPanelDriverDetailPage() {
       }
     };
     reader.readAsDataURL(file);
+  }
+
+  function handleOpenPhotoPicker() {
+    if (!isEditing) {
+      return;
+    }
+
+    const input = photoInputRef.current;
+    if (!input) {
+      return;
+    }
+
+    if (typeof input.showPicker === "function") {
+      input.showPicker();
+      return;
+    }
+
+    input.click();
   }
 
   function handleSave() {
@@ -166,15 +185,25 @@ export default function RktPanelDriverDetailPage() {
               <div className="block space-y-2">
                 <span className="text-[11px] uppercase tracking-[0.24em] text-amber-200/75">Actualizar foto</span>
                 <input
+                  ref={photoInputRef}
                   type="file"
                   accept="image/*"
-                  disabled={!isEditing}
                   onChange={handlePhotoChange}
-                  className="w-full rounded-2xl border border-dashed border-amber-500/20 bg-white/[0.03] px-4 py-3 text-sm text-white file:mr-4 file:rounded-full file:border-0 file:bg-amber-500/15 file:px-4 file:py-2 file:text-xs file:uppercase file:tracking-[0.2em] file:text-amber-100 disabled:cursor-not-allowed disabled:opacity-45"
+                  className="sr-only"
                 />
                 <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    disabled={!isEditing}
+                    onClick={handleOpenPhotoPicker}
+                    className="rounded-2xl border border-amber-300/25 bg-amber-500/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-amber-100 transition hover:border-amber-300/50 hover:bg-amber-500/18 disabled:cursor-not-allowed disabled:opacity-45"
+                  >
+                    Seleccionar archivo
+                  </button>
                   <span className="text-sm text-white/45">
-                    {form.photo === "/logos/logo_rkt.png" ? "Usando imagen por defecto" : "Imagen personalizada cargada"}
+                    {form.photo === "/logos/logo_rkt.png"
+                      ? "Usando imagen por defecto"
+                      : "Imagen personalizada cargada"}
                   </span>
                 </div>
               </div>
