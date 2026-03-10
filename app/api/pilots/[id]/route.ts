@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import type { Prisma } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
 import { serializePilot } from "@/lib/rkt-panel-server";
@@ -28,7 +29,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   try {
     const body = (await request.json()) as DriverRecord;
 
-    const pilot = await prisma.$transaction(async (tx) => {
+    const pilot = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.comment.deleteMany({ where: { pilotId: params.id } });
 
       return tx.pilot.update({

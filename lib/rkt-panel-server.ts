@@ -1,9 +1,30 @@
-import type { Comment, Pilot } from "@prisma/client";
-
 import { prisma } from "@/lib/prisma";
 import { DEFAULT_DRIVERS, type DriverComment, type DriverRecord } from "@/lib/rkt-panel";
 
-type PilotWithComments = Pilot & { comments: Comment[] };
+type PilotWithComments = {
+  id: string;
+  name: string;
+  age: number;
+  dni: string;
+  phone: string;
+  email: string;
+  category: string;
+  status: string;
+  photo: string | null;
+  internalNotes: string;
+  insuranceAccepted: boolean;
+  liabilitySigned: boolean;
+  imageAccepted: boolean;
+  confirmedAt: Date | null;
+  confirmedBy: string;
+  createdAt: Date;
+  comments: Array<{
+    id: string;
+    text: string;
+    createdAt: Date;
+    pilotId: string;
+  }>;
+};
 
 export function serializePilot(pilot: PilotWithComments): DriverRecord {
   return {
@@ -28,8 +49,11 @@ export function serializePilot(pilot: PilotWithComments): DriverRecord {
     },
     comments: pilot.comments
       .slice()
-      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
-      .map<DriverComment>((comment) => ({
+      .sort(
+        (a: PilotWithComments["comments"][number], b: PilotWithComments["comments"][number]) =>
+          b.createdAt.getTime() - a.createdAt.getTime(),
+      )
+      .map<DriverComment>((comment: PilotWithComments["comments"][number]) => ({
         id: comment.id,
         text: comment.text,
         createdAt: comment.createdAt.toISOString(),
