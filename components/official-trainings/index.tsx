@@ -195,7 +195,7 @@ export function OfficialTrainingsSection({ initialSessions }: { initialSessions:
                                 {session.pilots.map((pilot) => (
                                   <div key={pilot.id} className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/35 px-2.5 py-2">
                                     <div className="relative h-8 w-8 overflow-hidden rounded-lg border border-amber-500/20 bg-black/60">
-                                      <Image src={pilot.photo || "/logos/logo_rkt.png"} alt={pilot.name} fill unoptimized className="object-contain p-1" />
+                                      <Image src="/logos/logo_rkt.png" alt={pilot.name} fill unoptimized className="object-contain p-1" />
                                     </div>
                                     <span className="truncate text-sm text-white/85">{pilot.name}</span>
                                   </div>
