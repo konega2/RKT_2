@@ -17,17 +17,7 @@ import {
 } from "@/lib/rkt-panel";
 
 function DriverPhoto({ src, alt }: { src: string; alt: string }) {
-  const isDefaultPhoto = src === "/logos/logo_rkt.png";
-
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      unoptimized
-      className={isDefaultPhoto ? "object-contain p-8" : "object-cover"}
-    />
-  );
+  return <Image src={src} alt={alt} fill unoptimized className="object-contain p-6" />;
 }
 
 export default function RktPanelDriverDetailPage() {
@@ -169,32 +159,20 @@ export default function RktPanelDriverDetailPage() {
           className="space-y-6"
         >
           <div className="overflow-hidden rounded-[28px] border border-amber-500/15 bg-white/[0.03] backdrop-blur-xl">
-            <div className="aspect-[0.86] bg-black">
+            <div className="aspect-[0.86] bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.08),transparent_45%),linear-gradient(180deg,#090909_0%,#050505_100%)]">
               <DriverPhoto src={form.photo} alt={form.name} />
             </div>
             <div className="border-t border-amber-500/10 p-5">
               <div className="block space-y-2">
                 <span className="text-[11px] uppercase tracking-[0.24em] text-amber-200/75">Actualizar foto</span>
                 <input
-                  id="pilot-photo-upload"
                   type="file"
                   accept="image/*"
                   disabled={!isEditing}
                   onChange={handlePhotoChange}
-                  className="sr-only"
+                  className="w-full rounded-2xl border border-dashed border-amber-500/20 bg-white/[0.03] px-4 py-3 text-sm text-white file:mr-4 file:rounded-full file:border-0 file:bg-amber-500/15 file:px-4 file:py-2 file:text-xs file:uppercase file:tracking-[0.2em] file:text-amber-100 disabled:cursor-not-allowed disabled:opacity-45"
                 />
                 <div className="flex flex-wrap items-center gap-3">
-                  <label
-                    htmlFor="pilot-photo-upload"
-                    aria-disabled={!isEditing}
-                    className="rounded-2xl border border-amber-300/25 bg-amber-500/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-amber-100 transition hover:border-amber-300/50 hover:bg-amber-500/18"
-                    style={{
-                      cursor: isEditing ? "pointer" : "not-allowed",
-                      opacity: isEditing ? 1 : 0.45,
-                    }}
-                  >
-                    Seleccionar archivo
-                  </label>
                   <span className="text-sm text-white/45">
                     {form.photo === "/logos/logo_rkt.png" ? "Usando imagen por defecto" : "Imagen personalizada cargada"}
                   </span>
