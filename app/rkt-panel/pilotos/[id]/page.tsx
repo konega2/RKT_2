@@ -173,7 +173,7 @@ export default function RktPanelDriverDetailPage() {
               <DriverPhoto src={form.photo} alt={form.name} />
             </div>
             <div className="border-t border-amber-500/10 p-5">
-              <label className="block space-y-2">
+              <div className="block space-y-2">
                 <span className="text-[11px] uppercase tracking-[0.24em] text-amber-200/75">Actualizar foto</span>
                 <input
                   id="pilot-photo-upload"
@@ -199,7 +199,7 @@ export default function RktPanelDriverDetailPage() {
                     {form.photo === "/logos/logo_rkt.png" ? "Usando imagen por defecto" : "Imagen personalizada cargada"}
                   </span>
                 </div>
-              </label>
+              </div>
             </div>
           </div>
 
