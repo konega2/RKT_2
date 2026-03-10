@@ -40,7 +40,15 @@ const EMPTY_DRAFT: DriverDraft = {
 };
 
 function DriverPhoto({ src, alt }: { src: string; alt: string }) {
-  return <Image src={src} alt={alt} fill unoptimized className="object-cover" />;
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      unoptimized
+      className="object-contain p-4"
+    />
+  );
 }
 
 export default function RktPanelPilotosPage() {
@@ -187,7 +195,7 @@ export default function RktPanelPilotosPage() {
                   onClick={() => router.push(`/rkt-panel/pilotos/${driver.id}`)}
                   className="group overflow-hidden rounded-[26px] border border-amber-500/15 bg-white/[0.03] text-left backdrop-blur-xl transition hover:border-amber-300/35 hover:bg-white/[0.05]"
                 >
-                  <div className="aspect-[0.88] overflow-hidden bg-black">
+                  <div className="aspect-[0.88] overflow-hidden bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.08),transparent_45%),linear-gradient(180deg,#090909_0%,#050505_100%)]">
                     <DriverPhoto src={driver.photo} alt={driver.name} />
                   </div>
                   <div className="border-t border-amber-500/10 px-4 py-4">

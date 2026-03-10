@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -17,7 +17,17 @@ import {
 } from "@/lib/rkt-panel";
 
 function DriverPhoto({ src, alt }: { src: string; alt: string }) {
-  return <Image src={src} alt={alt} fill unoptimized className="object-cover" />;
+  const isDefaultPhoto = src === "/logos/logo_rkt.png";
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      unoptimized
+      className={isDefaultPhoto ? "object-contain p-8" : "object-cover"}
+    />
+  );
 }
 
 export default function RktPanelDriverDetailPage() {
@@ -30,6 +40,7 @@ export default function RktPanelDriverDetailPage() {
   const [commentText, setCommentText] = useState("");
   const [saved, setSaved] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (driver) {
@@ -166,12 +177,26 @@ export default function RktPanelDriverDetailPage() {
               <label className="block space-y-2">
                 <span className="text-[11px] uppercase tracking-[0.24em] text-amber-200/75">Actualizar foto</span>
                 <input
+                  ref={fileInputRef}
                   type="file"
                   accept="image/*"
                   disabled={!isEditing}
                   onChange={handlePhotoChange}
-                  className="w-full rounded-2xl border border-dashed border-amber-500/20 bg-white/[0.03] px-4 py-3 text-sm text-white file:mr-4 file:rounded-full file:border-0 file:bg-amber-500/15 file:px-4 file:py-2 file:text-xs file:uppercase file:tracking-[0.2em] file:text-amber-100 disabled:cursor-not-allowed disabled:opacity-45"
+                  className="hidden"
                 />
+                <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    disabled={!isEditing}
+                    onClick={() => fileInputRef.current?.click()}
+                    className="rounded-2xl border border-amber-300/25 bg-amber-500/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-amber-100 transition hover:border-amber-300/50 hover:bg-amber-500/18 disabled:cursor-not-allowed disabled:opacity-45"
+                  >
+                    Seleccionar archivo
+                  </button>
+                  <span className="text-sm text-white/45">
+                    {form.photo === "/logos/logo_rkt.png" ? "Usando imagen por defecto" : "Imagen personalizada cargada"}
+                  </span>
+                </div>
               </label>
             </div>
           </div>
