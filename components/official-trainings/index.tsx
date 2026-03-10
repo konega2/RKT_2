@@ -92,6 +92,14 @@ export function OfficialTrainingsSection() {
     }
 
     void loadSessions();
+
+    const intervalId = window.setInterval(() => {
+      void loadSessions();
+    }, 10000);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
   }, []);
 
   const sortedSessions = useMemo(

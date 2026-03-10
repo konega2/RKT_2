@@ -7,6 +7,9 @@ import {
   serializeTrainingSession,
 } from "@/lib/rkt-panel-server";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET(_: Request, { params }: { params: { id: string } }) {
   try {
     await ensurePilotSeedData();
@@ -29,7 +32,11 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
       return NextResponse.json({ error: "Sesión no encontrada." }, { status: 404 });
     }
 
-    return NextResponse.json(serializeTrainingSession(session));
+    return NextResponse.json(serializeTrainingSession(session), {
+      headers: {
+        "Cache-Control": "no-store, max-age=0",
+      },
+    });
   } catch (error) {
     return NextResponse.json(
       { error: "No se ha podido cargar la sesión.", details: String(error) },

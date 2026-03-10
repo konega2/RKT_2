@@ -50,6 +50,14 @@ export default function RktPanelTrainingsPage() {
     }
 
     void loadSessions();
+
+    const intervalId = window.setInterval(() => {
+      void loadSessions();
+    }, 8000);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
   }, []);
 
   const sortedSessions = useMemo(

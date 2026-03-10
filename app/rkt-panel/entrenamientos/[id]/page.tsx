@@ -23,6 +23,7 @@ export default function RktPanelTrainingSessionDetailPage() {
   const [query, setQuery] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [savingPilotId, setSavingPilotId] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadSession() {
@@ -71,21 +72,39 @@ export default function RktPanelTrainingSessionDetailPage() {
       return;
     }
 
-    const response = await fetch(`/api/training-sessions/${session.id}/assignments`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ pilotId }),
-    });
+    const pilotToAdd = drivers.find((pilot) => pilot.id === pilotId);
 
-    const data = (await response.json()) as TrainingSessionRecord | { error?: string };
-
-    if (!response.ok) {
-      setMessage(typeof data === "object" && "error" in data ? data.error ?? "No se ha podido asignar." : "No se ha podido asignar.");
+    if (!pilotToAdd) {
       return;
     }
 
-    setSession(data as TrainingSessionRecord);
-    setMessage(null);
+    setSavingPilotId(pilotId);
+    const previousSession = session;
+    setSession({ ...session, pilots: [...session.pilots, pilotToAdd] });
+
+    try {
+      const response = await fetch(`/api/training-sessions/${session.id}/assignments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pilotId }),
+      });
+
+      const data = (await response.json()) as TrainingSessionRecord | { error?: string };
+
+      if (!response.ok) {
+        setSession(previousSession);
+        setMessage(typeof data === "object" && "error" in data ? data.error ?? "No se ha podido asignar." : "No se ha podido asignar.");
+        return;
+      }
+
+      setSession(data as TrainingSessionRecord);
+      setMessage(null);
+    } catch {
+      setSession(previousSession);
+      setMessage("No se ha podido asignar.");
+    } finally {
+      setSavingPilotId(null);
+    }
   }
 
   async function removePilot(pilotId: string) {
@@ -209,7 +228,7 @@ export default function RktPanelTrainingSessionDetailPage() {
                   onClick={() => {
                     void addPilot(pilot.id);
                   }}
-                  disabled={isComplete}
+                  disabled={isComplete || savingPilotId === pilot.id}
                   className="flex w-full items-center gap-3 rounded-2xl border border-white/10 bg-black/25 px-3 py-2 text-left transition hover:border-amber-300/35 hover:bg-amber-500/10 disabled:cursor-not-allowed disabled:opacity-45"
                 >
                   <div className="relative h-10 w-10 overflow-hidden rounded-xl border border-amber-500/15 bg-black/40">
