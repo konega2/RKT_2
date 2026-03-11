@@ -16,11 +16,11 @@ export default async function HomePage() {
     <main>
       <HeroSection />
       <EventInfoSection />
-      <CountersSection />
-      <TrophiesSection />
-      <SocialFeedSection />
       <OfficialTrainingsSection initialSessions={sessions} />
       <FinalCtaSection initialConfirmedPilots={confirmedPilots} />
+      <SocialFeedSection />
+      <CountersSection />
+      <TrophiesSection />
     </main>
   );
 }
