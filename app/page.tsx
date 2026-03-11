@@ -13,13 +13,17 @@ export default async function HomePage() {
   const { confirmedPilots, sessions } = await getLandingData();
 
   return (
-    <main>
+    <main className="space-y-20 md:space-y-28">
       <HeroSection />
       <EventInfoSection />
       <OfficialTrainingsSection initialSessions={sessions} />
+      <div aria-hidden className="mx-auto h-px w-full max-w-6xl bg-gradient-to-r from-transparent via-amber-300/25 to-transparent" />
       <FinalCtaSection initialConfirmedPilots={confirmedPilots} />
+      <div aria-hidden className="mx-auto h-px w-full max-w-6xl bg-gradient-to-r from-transparent via-amber-300/25 to-transparent" />
       <SocialFeedSection />
+      <div aria-hidden className="mx-auto h-px w-full max-w-6xl bg-gradient-to-r from-transparent via-amber-300/25 to-transparent" />
       <CountersSection />
+      <div aria-hidden className="mx-auto h-px w-full max-w-6xl bg-gradient-to-r from-transparent via-amber-300/25 to-transparent" />
       <TrophiesSection />
     </main>
   );
