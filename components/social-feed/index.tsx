@@ -25,14 +25,14 @@ const RECENT_CARDS: RecentCard[] = [
   {
     id: 0,
     title: "PRIMEROS PILOTOS CONFIRMADOS",
-    date: "28 Mayo 2025",
+    date: "4 Marzo",
     link: "https://www.instagram.com/p/DVeGVC8DVEU/?img_index=1",
     image: "/images/update1.png",
   },
   {
     id: 1,
     title: "NUEVOS PILOTOS CONFIRMADOS",
-    date: "21 Mayo 2025",
+    date: "11 Marzo",
     link: "https://www.instagram.com/p/DVwJd_8jfa5/?img_index=1",
     image: "/images/update2.png",
   },
