@@ -59,7 +59,7 @@ const FEATURE_CARDS: FeatureCard[] = [
   },
   {
     id: 3,
-    title: "FLOTA DE KARTS DEL CAMPEONATO",
+    title: "FLOTA DE KARTS DEL EVENTO",
     link: "https://www.instagram.com/p/DVnyXpaDfmG/",
     image: "/images/Flota_karts.png",
   },
@@ -333,7 +333,7 @@ function RecentBlock() {
           className="mt-3 text-sm uppercase tracking-widest"
           style={{ color: "rgba(255,255,255,0.38)", letterSpacing: "0.16em" }}
         >
-          Lo último publicado por el campeonato.
+          Lo último publicado del evento.
         </p>
       </motion.div>
 
@@ -428,7 +428,7 @@ export function SocialFeedSection() {
               letterSpacing: "0.18em",
             }}
           >
-            Información, anuncios y novedades del campeonato.
+            Información, anuncios y novedades del evento.
           </p>
 
           {/* Decorative diamond divider */}

@@ -24,7 +24,7 @@ export function FooterSection() {
                 className="h-auto w-[130px] sm:w-[160px]"
               />
               <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/80">
-                Campeonato oficial de karting de alquiler con igualdad en pista, formato competitivo y ambiente de alto nivel.
+                Evento oficial de karting de alquiler con igualdad en pista, formato competitivo y ambiente de alto nivel.
               </p>
             </div>
 

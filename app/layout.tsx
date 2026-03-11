@@ -8,11 +8,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Rental Karting Trophy (RKT)",
-  description: "Web oficial del campeonato Rental Karting Trophy (RKT).",
+  description: "Web oficial del evento Rental Karting Trophy (RKT).",
   metadataBase: new URL("https://rentalkartingtrophy.com"),
   openGraph: {
     title: "Rental Karting Trophy (RKT)",
-    description: "Web oficial del campeonato Rental Karting Trophy (RKT).",
+    description: "Web oficial del evento Rental Karting Trophy (RKT).",
     url: "https://rentalkartingtrophy.com",
     siteName: "Rental Karting Trophy (RKT)",
     locale: "es_ES",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Rental Karting Trophy (RKT)",
-    description: "Web oficial del campeonato Rental Karting Trophy (RKT).",
+    description: "Web oficial del evento Rental Karting Trophy (RKT).",
     images: ["/opengraph-image"],
   },
   icons: {

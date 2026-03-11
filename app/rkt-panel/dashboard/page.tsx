@@ -31,7 +31,7 @@ export default function RktPanelDashboardPage() {
           <p className="text-[11px] uppercase tracking-[0.32em] text-amber-300/85">Centro de control</p>
           <h2 className="mt-3 text-2xl font-black uppercase tracking-[0.08em] text-white [text-shadow:0_0_12px_rgba(255,255,255,0.12)]">Panel de gestión RKT</h2>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-white/82">
-            Revisa pre-inscripciones, aprueba pilotos, organiza entrenamientos y mantén el flujo operativo del campeonato desde un único panel.
+            Revisa pre-inscripciones, aprueba pilotos, organiza entrenamientos y mantén el flujo operativo del evento desde un único panel.
           </p>
 
           <div className="mt-8 grid gap-4 md:grid-cols-3">

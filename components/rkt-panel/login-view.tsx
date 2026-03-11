@@ -52,7 +52,7 @@ export function RktPanelLoginView() {
             </div>
             <p className="text-center text-[11px] uppercase tracking-[0.32em] text-amber-300/75">Rental Karting Trophy</p>
             <h1 className="mt-3 text-center text-3xl font-black uppercase tracking-[0.08em] text-white">Acceso al panel</h1>
-            <p className="mt-3 text-center text-sm text-white/55">Sistema interno de gestión para el campeonato RKT.</p>
+            <p className="mt-3 text-center text-sm text-white/55">Sistema interno de gestión para el evento RKT.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5 px-8 py-8">
