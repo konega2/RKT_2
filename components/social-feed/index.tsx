@@ -24,17 +24,17 @@ interface RecentCard {
 const RECENT_CARDS: RecentCard[] = [
   {
     id: 0,
-    title: "FLOTA DE KARTS DEL CAMPEONATO",
+    title: "PRIMEROS PILOTOS CONFIRMADOS",
     date: "28 Mayo 2025",
-    link: "https://www.instagram.com/p/DVnyXpaDfmG/",
-    image: "/images/Flota_karts.png",
+    link: "https://www.instagram.com/p/DVeGVC8DVEU/?img_index=1",
+    image: "/images/update1.png",
   },
   {
     id: 1,
-    title: "RETRANSMISIÓN OFICIAL DEL EVENTO",
+    title: "NUEVOS PILOTOS CONFIRMADOS",
     date: "21 Mayo 2025",
-    link: "https://www.instagram.com/p/DUqy9EfjYz-/",
-    image: "/images/retrasnmision_oficial.png",
+    link: "https://www.instagram.com/p/DVwJd_8jfa5/?img_index=1",
+    image: "/images/update2.png",
   },
 ];
 
@@ -230,12 +230,12 @@ function RecentCardItem({ card }: { card: RecentCard }) {
       />
 
       {/* Image */}
-      <div className="relative aspect-video w-full overflow-hidden">
+      <div className="relative aspect-square w-full overflow-hidden bg-black">
         <Image
           src={card.image}
           alt={card.title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-100"
+          className="object-contain transition-transform duration-500 group-hover:scale-100"
         />
         <div
           className="absolute inset-0"
