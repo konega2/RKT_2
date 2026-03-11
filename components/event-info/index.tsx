@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useInView } from "framer-motion";
 interface TimelineNode {
   id: number;
   label: string;
+  mobileLabel: string;
   heading: string;
   body: string;
   detail?: string;
@@ -16,6 +17,7 @@ const NODES: TimelineNode[] = [
   {
     id: 0,
     label: "QUÉ ES",
+    mobileLabel: "QUÉ ES",
     heading: "¿Qué es?",
     body:
       "El Rental Karting Trophy (RKT) es un evento de karting de alquiler creado para pilotos que buscan algo más que una simple carrera: competición real, igualdad en pista y un formato pensado para rendir al máximo.",
@@ -24,6 +26,7 @@ const NODES: TimelineNode[] = [
   {
     id: 1,
     label: "CUÁNDO Y DÓNDE",
+    mobileLabel: "CUÁNDO",
     heading: "¿Cuándo y dónde?",
     body: "3 y 4 de julio de 2026 · Kartódromo Internacional Lucas Guerrero · Chiva – Valencia, España",
     accentIcon: "02",
@@ -31,6 +34,7 @@ const NODES: TimelineNode[] = [
   {
     id: 2,
     label: "FORMATO",
+    mobileLabel: "FORMATO",
     heading: "Formato",
     body:
       "El RKT 2026 se disputará en varias fases durante el día de competición: 4 Heats clasificatorios (1 vuelta de clasificación + 6 vueltas de carrera), Semifinales (A, B, C y D) con 10 vueltas y 1 pase obligatorio por la Long Lap, y Finales (A, B, C y D) con 12 vueltas y 2 pases obligatorios por la Long Lap.",
@@ -40,6 +44,7 @@ const NODES: TimelineNode[] = [
   {
     id: 3,
     label: "PRECIO E INSCRIPCIÓN",
+    mobileLabel: "PRECIO",
     heading: "Precio e Inscripción",
     body: "Inscripción total: 225€. La inscripción se realiza en dos fases: Pre-inscripción – 125€ (reserva de plaza y acceso al evento) y Pago final – 100€ (a abonar el día del evento en el circuito).",
     detail: "Las plazas son limitadas y se asignan por orden de inscripción.",
@@ -267,7 +272,7 @@ function TimelineDot({
 }) {
   return (
     <motion.div
-      className="relative flex flex-col items-center"
+      className="relative flex min-w-0 flex-1 flex-col items-center"
       initial={{ opacity: 0, y: 32, scale: 0.6 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ ...SPRING, delay: 0.55 + index * 0.1 }}
@@ -293,12 +298,12 @@ function TimelineDot({
         onClick={onClick}
         aria-label={`Ver información: ${node.label}`}
         aria-pressed={isActive}
-        className="relative flex h-14 w-14 cursor-pointer items-center justify-center focus:outline-none"
+        className="relative flex h-12 w-12 cursor-pointer items-center justify-center focus:outline-none md:h-14 md:w-14"
         whileTap={{ scale: 0.9 }}
         animate={isActive ? { scale: 1.16 } : { scale: 1 }}
         transition={SPRING}
       >
-        <span className="relative flex h-14 w-14 items-center justify-center">
+        <span className="relative flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
           <AnimatePresence>
             {isActive && (
               <span className="pointer-events-none absolute inset-0 grid place-items-center">
@@ -395,7 +400,7 @@ function TimelineDot({
       </motion.button>
 
       <motion.p
-        className="mt-3 text-[9px] font-black uppercase tracking-[0.22em]"
+        className="mt-2 w-full px-1 text-center text-[8px] font-black uppercase leading-tight tracking-[0.12em] md:mt-3 md:text-[9px] md:tracking-[0.22em]"
         animate={{
           color: isActive ? "#FDE68A" : "rgba(251,191,36,0.65)",
           opacity: isActive ? 1 : 0.65,
@@ -403,7 +408,8 @@ function TimelineDot({
         }}
         transition={{ duration: 0.25 }}
       >
-        {node.label}
+        <span className="md:hidden">{node.mobileLabel}</span>
+        <span className="hidden md:inline">{node.label}</span>
       </motion.p>
     </motion.div>
   );
