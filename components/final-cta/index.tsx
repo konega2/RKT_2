@@ -95,7 +95,7 @@ export function FinalCtaSection({ initialConfirmedPilots }: { initialConfirmedPi
           transition={{ duration: 0.5 }}
           className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#D4AF37]"
         >
-          Campeonato RKT · Valencia · 2026
+          Evento RKT · Valencia · 2026
         </motion.p>
 
         {/* Headline */}
