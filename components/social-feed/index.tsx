@@ -365,7 +365,7 @@ export function SocialFeedSection() {
       id="social-feed"
       ref={sectionRef}
       aria-label="Actualidad del RKT"
-      className="relative overflow-hidden py-24 md:py-32"
+      className="relative overflow-hidden pt-24 pb-6 md:pt-32 md:pb-8"
     >
 
 
