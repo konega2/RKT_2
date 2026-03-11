@@ -58,8 +58,8 @@ export default function OpengraphImage() {
         >
           <div style={{ fontSize: 72, fontWeight: 900, lineHeight: 1.02, letterSpacing: -1.5 }}>
             <div>ARE YOU READY</div>
-            <div>TO BE THE FIRST</div>
-            <div style={{ color: "#FBBF24" }}>CHAMPION?</div>
+            <div>FOR THE RKT</div>
+            <div style={{ color: "#FBBF24" }}>EVENT?</div>
           </div>
 
           <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: 2.5, textTransform: "uppercase", opacity: 0.92 }}>

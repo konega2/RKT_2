@@ -138,7 +138,7 @@ export function OfficialTrainingsSection({ initialSessions }: { initialSessions:
                         <div className="mt-2 space-y-1.5">
                           {sessionsForPilot.map((session) => (
                             <p key={session.id} className="text-sm text-white/85">
-                              {session.time} – {session.name}
+                              {session.name} – {session.time}
                             </p>
                           ))}
                         </div>
@@ -153,9 +153,9 @@ export function OfficialTrainingsSection({ initialSessions }: { initialSessions:
           </div>
 
           <div className="rounded-2xl border border-amber-500/12 bg-white/[0.02]">
-            <div className="grid grid-cols-[0.7fr_1.6fr_0.8fr] gap-3 border-b border-amber-500/10 px-4 py-3 text-[11px] uppercase tracking-[0.2em] text-amber-300/65">
-              <span>Hora</span>
+            <div className="grid grid-cols-[1.6fr_0.7fr_0.8fr] gap-3 border-b border-amber-500/10 px-4 py-3 text-[11px] uppercase tracking-[0.2em] text-amber-300/65">
               <span>Sesión</span>
+              <span>Hora</span>
               <span className="text-right">Ocupación</span>
             </div>
 
@@ -171,10 +171,10 @@ export function OfficialTrainingsSection({ initialSessions }: { initialSessions:
                     <button
                       type="button"
                       onClick={() => setOpenSessionId((current) => (current === session.id ? null : session.id))}
-                      className="grid w-full grid-cols-[0.7fr_1.6fr_0.8fr] gap-3 px-4 py-3 text-left text-sm transition hover:bg-amber-500/8"
+                      className="grid w-full grid-cols-[1.6fr_0.7fr_0.8fr] gap-3 px-4 py-3 text-left text-sm transition hover:bg-amber-500/8"
                     >
-                      <span className="font-semibold text-amber-100">{session.time}</span>
                       <span className="truncate text-white/85">{session.name}</span>
+                      <span className="font-semibold text-amber-100">{session.time}</span>
                       <span className={`text-right font-semibold ${occupancyColor(assigned, session.maxPilots)}`}>
                         {assigned}/{session.maxPilots}
                       </span>
