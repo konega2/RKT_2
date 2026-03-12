@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { DEFAULT_DRIVERS, DEFAULT_TRAINING_SESSIONS } from "@/lib/rkt-panel";
-import { ensureTrainingSessionsSeedData } from "@/lib/rkt-panel-server";
 
 export interface LandingTrainingPilot {
   id: string;
@@ -36,8 +35,6 @@ function getFallbackLandingData(): LandingData {
 
 export async function getLandingData(): Promise<LandingData> {
   try {
-    await ensureTrainingSessionsSeedData();
-
     const [confirmedPilots, sessions] = await Promise.all([
       prisma.pilot.count({
         where: { status: "CONFIRMED" },
@@ -63,6 +60,13 @@ export async function getLandingData(): Promise<LandingData> {
         },
       }),
     ]);
+
+    if (sessions.length === 0) {
+      return {
+        confirmedPilots,
+        sessions: getFallbackLandingData().sessions,
+      };
+    }
 
     return {
       confirmedPilots,

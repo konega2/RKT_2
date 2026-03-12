@@ -71,6 +71,23 @@
     background-size: 100% 4px;
   }
 
+  @keyframes bg-drift {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(180px, 0, 0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .bg-streaks {
+    animation: bg-drift 38s linear infinite;
+    will-change: transform;
+  }
+
   .event-grid-3d {
     perspective: 1600px;
   }

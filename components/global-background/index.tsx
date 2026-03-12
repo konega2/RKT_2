@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 /**
  * Fondo global fijo que cubre toda la pantalla.
  * z-index: -1 → siempre detrás de cualquier contenido.
@@ -103,18 +99,11 @@ export function GlobalBackground() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_80%,rgba(180,83,9,0.1)_0%,transparent_68%)]" />
 
       {/* Rayas diagonales doradas animadas — drift horizontal muy lento */}
-      <motion.svg
+      <svg
         aria-hidden
-        className="absolute inset-0 h-full w-full"
+        className="bg-streaks absolute inset-0 h-full w-full"
         viewBox="0 0 1440 900"
         preserveAspectRatio="xMidYMid slice"
-        animate={{ x: [0, 180, 0] }}
-        transition={{
-          duration: 38,
-          ease: "linear",
-          repeat: Infinity,
-          repeatType: "loop",
-        }}
       >
         {STREAKS.map((s) => (
           <g key={s.id}>
@@ -147,7 +136,7 @@ export function GlobalBackground() {
             />
           </g>
         ))}
-      </motion.svg>
+      </svg>
 
       {/* Viñeta perimetral para oscurecer los bordes */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_110%_100%_at_50%_50%,transparent_45%,rgba(0,0,0,0.4)_100%)]" />

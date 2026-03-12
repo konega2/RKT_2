@@ -141,21 +141,6 @@ export async function ensureTrainingSessionsSeedData() {
   const existing = await prisma.trainingSession.count();
 
   if (existing > 0) {
-    await prisma.$transaction(
-      DEFAULT_TRAINING_SESSIONS.map((session) =>
-        prisma.trainingSession.updateMany({
-          where: { time: session.time },
-          data: {
-            name: session.name,
-            maxPilots: 24,
-          },
-        }),
-      ),
-    );
-
-    await prisma.trainingSession.updateMany({
-      data: { maxPilots: 24 },
-    });
     return;
   }
 
