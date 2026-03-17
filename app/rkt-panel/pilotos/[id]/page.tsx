@@ -12,7 +12,6 @@ import {
   DRIVER_STATUS_LABELS,
   DRIVER_STATUSES,
   formatPanelDate,
-  type DriverCategory,
   type DriverRecord,
   type DriverStatus,
 } from "@/lib/rkt-panel";
@@ -315,17 +314,31 @@ export default function RktPanelDriverDetailPage() {
               ))}
 
               <label className="block space-y-2">
-                <span className="text-[11px] uppercase tracking-[0.24em] text-amber-200/75">Categoría</span>
-                <select
-                  value={form.category}
-                  disabled={!isEditing}
-                  onChange={(event) => updateField("category", event.target.value as DriverCategory)}
-                  className="w-full rounded-2xl border border-amber-500/15 bg-black/35 px-4 py-3 text-sm text-white outline-none focus:border-amber-400/45 disabled:cursor-not-allowed disabled:opacity-55"
-                >
-                  {DRIVER_CATEGORIES.map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
+                <span className="text-[11px] uppercase tracking-[0.24em] text-amber-200/75">Categorías</span>
+                <div className="grid gap-2 rounded-2xl border border-amber-500/15 bg-black/35 p-3">
+                  {DRIVER_CATEGORIES.map((option) => {
+                    const checked = form.category.includes(option);
+
+                    return (
+                      <label key={option} className="flex items-center justify-between rounded-xl border border-white/8 bg-black/30 px-3 py-2 text-sm text-white/80">
+                        <span>{option}</span>
+                        <input
+                          type="checkbox"
+                          disabled={!isEditing}
+                          checked={checked}
+                          onChange={(event) => {
+                            const nextCategories = event.target.checked
+                              ? [...form.category, option]
+                              : form.category.filter((category) => category !== option);
+
+                            updateField("category", nextCategories);
+                          }}
+                          className="h-4 w-4 accent-amber-400 disabled:cursor-not-allowed disabled:opacity-45"
+                        />
+                      </label>
+                    );
+                  })}
+                </div>
               </label>
 
               <label className="block space-y-2">

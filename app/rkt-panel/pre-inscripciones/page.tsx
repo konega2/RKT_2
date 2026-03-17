@@ -22,7 +22,7 @@ interface DriverDraft {
   dni: string;
   phone: string;
   email: string;
-  category: DriverCategory;
+  category: DriverCategory[];
   photo: string;
 }
 
@@ -32,7 +32,7 @@ const EMPTY_DRAFT: DriverDraft = {
   dni: "",
   phone: "",
   email: "",
-  category: "Senior",
+  category: ["Junior"],
   photo: "/logos/logo_rkt.png",
 };
 
@@ -328,24 +328,29 @@ export default function RktPanelPreinscripcionesPage() {
                 ))}
 
                 <label className="block space-y-2">
-                  <span className="text-[11px] uppercase tracking-[0.24em] text-amber-200/75">Categoría</span>
-                  <div className="relative">
-                    <select
-                      value={draft.category}
-                      onChange={(event) => updateDraft("category", event.target.value as DriverCategory)}
-                      className="w-full appearance-none rounded-2xl border border-amber-500/15 bg-black/60 px-4 py-3 pr-12 text-sm text-white outline-none transition focus:border-amber-400/45 focus:bg-black/70"
-                    >
-                      {DRIVER_CATEGORIES.map((option) => (
-                        <option key={option} value={option} className="bg-[#090806] text-white">
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                    <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-amber-300/75">
-                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-4 w-4">
-                        <path d="m5 7 5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
+                  <span className="text-[11px] uppercase tracking-[0.24em] text-amber-200/75">Categorías</span>
+                  <div className="grid gap-2 rounded-2xl border border-amber-500/15 bg-black/60 p-3">
+                    {DRIVER_CATEGORIES.map((option) => {
+                      const checked = draft.category.includes(option);
+
+                      return (
+                        <label key={option} className="flex items-center justify-between rounded-xl border border-white/8 bg-black/30 px-3 py-2 text-sm text-white/80">
+                          <span>{option}</span>
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={(event) => {
+                              const nextCategories = event.target.checked
+                                ? [...draft.category, option]
+                                : draft.category.filter((category) => category !== option);
+
+                              updateDraft("category", nextCategories);
+                            }}
+                            className="h-4 w-4 accent-amber-400"
+                          />
+                        </label>
+                      );
+                    })}
                   </div>
                 </label>
 

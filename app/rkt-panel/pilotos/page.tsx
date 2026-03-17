@@ -31,7 +31,7 @@ export default function RktPanelPilotosPage() {
 
     return [...drivers]
       .filter((driver) => driver.status === "CONFIRMED")
-      .filter((driver) => (category === "Todas" ? true : driver.category === category))
+      .filter((driver) => (category === "Todas" ? true : driver.category.includes(category)))
       .filter((driver) => driver.name.toLowerCase().includes(normalizedQuery))
       .sort((left, right) => {
         if (orderBy === "registeredAt") {

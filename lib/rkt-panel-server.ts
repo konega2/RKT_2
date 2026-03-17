@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import type { Prisma } from "@prisma/client";
 import {
   DEFAULT_DRIVERS,
   DEFAULT_TRAINING_SESSIONS,
@@ -14,7 +15,7 @@ type PilotWithComments = {
   dni: string;
   phone: string;
   email: string;
-  category: string;
+  category: string[];
   status: string;
   photo: string | null;
   internalNotes: string;
@@ -45,6 +46,8 @@ type TrainingSessionWithAssignments = {
 };
 
 export function serializePilot(pilot: PilotWithComments): DriverRecord {
+  const normalizedCategories = Array.isArray(pilot.category) ? pilot.category : [];
+
   return {
     id: pilot.id,
     name: pilot.name,
@@ -52,7 +55,7 @@ export function serializePilot(pilot: PilotWithComments): DriverRecord {
     dni: pilot.dni,
     phone: pilot.phone,
     email: pilot.email,
-    category: pilot.category as DriverRecord["category"],
+    category: normalizedCategories as DriverRecord["category"],
     status: pilot.status as DriverRecord["status"],
     photo: pilot.photo || "/logos/logo_rkt.png",
     documentation: {
@@ -80,7 +83,7 @@ export function serializePilot(pilot: PilotWithComments): DriverRecord {
   };
 }
 
-export function pilotCreateInputFromRecord(record: DriverRecord) {
+export function pilotCreateInputFromRecord(record: DriverRecord): Prisma.PilotCreateInput {
   const isConfirmed = record.status === "CONFIRMED";
 
   return {
@@ -89,7 +92,7 @@ export function pilotCreateInputFromRecord(record: DriverRecord) {
     dni: record.dni,
     phone: record.phone,
     email: record.email,
-    category: record.category,
+    category: [...record.category],
     status: record.status,
     photo: record.photo,
     internalNotes: record.internalNotes,

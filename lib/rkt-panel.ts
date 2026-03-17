@@ -1,5 +1,5 @@
 export type DriverStatus = "PENDING" | "CONFIRMED" | "REJECTED";
-export type DriverCategory = "Senior" | "Junior" | "Pro" | "Amateur";
+export type DriverCategory = "Junior" | "Master" | "Femina" | "Overall";
 
 export interface DriverComment {
   id: string;
@@ -26,7 +26,7 @@ export interface DriverRecord {
   dni: string;
   phone: string;
   email: string;
-  category: DriverCategory;
+  category: DriverCategory[];
   status: DriverStatus;
   photo: string;
   documentation: DriverDocumentation;
@@ -52,7 +52,7 @@ export const PANEL_CREDENTIALS = {
   password: "RKT_2007",
 } as const;
 
-export const DRIVER_CATEGORIES: DriverCategory[] = ["Senior", "Junior", "Pro", "Amateur"];
+export const DRIVER_CATEGORIES: DriverCategory[] = ["Junior", "Master", "Femina", "Overall"];
 export const DRIVER_STATUSES: DriverStatus[] = ["PENDING", "CONFIRMED", "REJECTED"];
 export const DRIVER_STATUS_LABELS: Record<DriverStatus, string> = {
   PENDING: "Preinscrito",
@@ -100,7 +100,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     dni: "12345678A",
     phone: "+34 612 345 678",
     email: "alex.martin@rkt.local",
-    category: "Pro",
+    category: ["Master"],
     status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
@@ -129,7 +129,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     dni: "22345678B",
     phone: "+34 622 111 090",
     email: "david.perez@rkt.local",
-    category: "Senior",
+    category: ["Master"],
     status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
@@ -152,7 +152,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     dni: "32345678C",
     phone: "+34 633 888 220",
     email: "jaime.ruiz@rkt.local",
-    category: "Junior",
+    category: ["Junior"],
     status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
@@ -181,7 +181,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     dni: "42345678D",
     phone: "+34 644 222 110",
     email: "lucas.ferrer@rkt.local",
-    category: "Amateur",
+    category: ["Overall"],
     status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
@@ -204,7 +204,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     dni: "52345678E",
     phone: "+34 655 123 456",
     email: "sergio.moya@rkt.local",
-    category: "Pro",
+    category: ["Master"],
     status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
@@ -227,7 +227,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     dni: "62345678F",
     phone: "+34 666 777 888",
     email: "marc.lopez@rkt.local",
-    category: "Senior",
+    category: ["Master"],
     status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
@@ -250,7 +250,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     dni: "72345678G",
     phone: "+34 677 456 789",
     email: "raul.gomez@rkt.local",
-    category: "Amateur",
+    category: ["Overall"],
     status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {
@@ -273,7 +273,7 @@ export const DEFAULT_DRIVERS: DriverRecord[] = [
     dni: "82345678H",
     phone: "+34 688 900 321",
     email: "ivan.castro@rkt.local",
-    category: "Junior",
+    category: ["Junior"],
     status: "CONFIRMED",
     photo: DEFAULT_PHOTO,
     documentation: {

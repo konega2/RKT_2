@@ -21,7 +21,7 @@ model Pilot {
   dni               String
   phone             String
   email             String
-  category          String
+  category          String[]
   status            PilotStatus @default(PENDING)
   photo             String?
   internalNotes     String    @default("")
@@ -35,7 +35,6 @@ model Pilot {
   assignments       TrainingAssignment[]
 
   @@index([name])
-  @@index([category])
   @@index([status])
   @@index([createdAt])
 }
