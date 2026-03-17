@@ -69,11 +69,6 @@ export function serializePilot(pilot: PilotWithComments): DriverRecord {
       confirmedBy: pilot.confirmedBy,
     },
     comments: pilot.comments
-      .slice()
-      .sort(
-        (a: PilotWithComments["comments"][number], b: PilotWithComments["comments"][number]) =>
-          b.createdAt.getTime() - a.createdAt.getTime(),
-      )
       .map<DriverComment>((comment: PilotWithComments["comments"][number]) => ({
         id: comment.id,
         text: comment.text,

@@ -9,7 +9,7 @@ export async function GET() {
     await ensurePilotSeedData();
 
     const pilots = await prisma.pilot.findMany({
-      include: { comments: true },
+      include: { comments: { orderBy: { createdAt: "desc" } } },
       orderBy: { createdAt: "desc" },
     });
 
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       data: {
         ...pilotCreateInputFromRecord(record),
       },
-      include: { comments: true },
+      include: { comments: { orderBy: { createdAt: "desc" } } },
     });
 
     return NextResponse.json(serializePilot(pilot), { status: 201 });

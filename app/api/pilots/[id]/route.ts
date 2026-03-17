@@ -9,7 +9,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
   try {
     const pilot = await prisma.pilot.findUnique({
       where: { id: params.id },
-      include: { comments: true },
+      include: { comments: { orderBy: { createdAt: "desc" } } },
     });
 
     if (!pilot) {
@@ -59,7 +59,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
             })),
           },
         },
-        include: { comments: true },
+        include: { comments: { orderBy: { createdAt: "desc" } } },
       });
     });
 

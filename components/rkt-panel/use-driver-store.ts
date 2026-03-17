@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 
 import { type DriverComment, type DriverRecord } from "@/lib/rkt-panel";
 
@@ -15,29 +15,93 @@ async function parseResponse<T>(response: Response): Promise<T> {
   return data as T;
 }
 
+type DriverStoreSnapshot = {
+  drivers: DriverRecord[];
+  loaded: boolean;
+  error: string | null;
+};
+
+let snapshot: DriverStoreSnapshot = {
+  drivers: [],
+  loaded: false,
+  error: null,
+};
+
+const listeners = new Set<() => void>();
+let inFlightRefresh: Promise<void> | null = null;
+let hasStartedInitialLoad = false;
+
+function emitChange() {
+  listeners.forEach((listener) => listener());
+}
+
+function setSnapshot(next: DriverStoreSnapshot) {
+  snapshot = next;
+  emitChange();
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+function getSnapshot() {
+  return snapshot;
+}
+
+async function loadDrivers(force = false) {
+  if (inFlightRefresh) {
+    return inFlightRefresh;
+  }
+
+  if (!force && snapshot.loaded) {
+    return;
+  }
+
+  inFlightRefresh = (async () => {
+    const shouldShowLoading = snapshot.drivers.length === 0;
+
+    if (shouldShowLoading) {
+      setSnapshot({ ...snapshot, loaded: false, error: null });
+    } else if (snapshot.error) {
+      setSnapshot({ ...snapshot, error: null });
+    }
+
+    try {
+      const data = await parseResponse<DriverRecord[]>(await fetch("/api/pilots", { cache: "no-store" }));
+      setSnapshot({ drivers: data, loaded: true, error: null });
+    } catch (fetchError) {
+      setSnapshot({
+        ...snapshot,
+        loaded: true,
+        error: fetchError instanceof Error ? fetchError.message : "No se han podido cargar los pilotos.",
+      });
+    } finally {
+      inFlightRefresh = null;
+    }
+  })();
+
+  return inFlightRefresh;
+}
+
 export function useDriverStore() {
-  const [drivers, setDrivers] = useState<DriverRecord[]>([]);
-  const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const state = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 
   const refresh = useCallback(async () => {
-    try {
-      setError(null);
-      const data = await parseResponse<DriverRecord[]>(await fetch("/api/pilots", { cache: "no-store" }));
-      setDrivers(data);
-    } catch (fetchError) {
-      setError(fetchError instanceof Error ? fetchError.message : "No se han podido cargar los pilotos.");
-    } finally {
-      setLoaded(true);
-    }
+    await loadDrivers(true);
   }, []);
 
   useEffect(() => {
-    void refresh();
-  }, [refresh]);
+    if (hasStartedInitialLoad) {
+      return;
+    }
+
+    hasStartedInitialLoad = true;
+    void loadDrivers();
+  }, []);
 
   const upsertDriver = useCallback(async (driver: DriverRecord) => {
-    const exists = drivers.some((item) => item.id === driver.id);
+    const exists = snapshot.drivers.some((item) => item.id === driver.id);
     const response = await fetch(exists ? `/api/pilots/${driver.id}` : "/api/pilots", {
       method: exists ? "PUT" : "POST",
       headers: {
@@ -48,22 +112,20 @@ export function useDriverStore() {
 
     const savedDriver = await parseResponse<DriverRecord>(response);
 
-    setDrivers((current) => {
-      const index = current.findIndex((item) => item.id === savedDriver.id);
-      if (index === -1) {
-        return [savedDriver, ...current];
-      }
-
-      const next = [...current];
+    const index = snapshot.drivers.findIndex((item) => item.id === savedDriver.id);
+    if (index === -1) {
+      setSnapshot({ ...snapshot, drivers: [savedDriver, ...snapshot.drivers], error: null, loaded: true });
+    } else {
+      const next = [...snapshot.drivers];
       next[index] = savedDriver;
-      return next;
-    });
+      setSnapshot({ ...snapshot, drivers: next, error: null, loaded: true });
+    }
 
     return savedDriver;
-  }, [drivers]);
+  }, []);
 
   const addComment = useCallback(async (driverId: string, comment: DriverComment) => {
-    const currentDriver = drivers.find((driver) => driver.id === driverId);
+    const currentDriver = snapshot.drivers.find((driver) => driver.id === driverId);
 
     if (!currentDriver) {
       throw new Error("Piloto no encontrado.");
@@ -75,30 +137,30 @@ export function useDriverStore() {
     };
 
     return upsertDriver(updatedDriver);
-  }, [drivers, upsertDriver]);
+  }, [upsertDriver]);
 
   const removeDriver = useCallback(async (driverId: string) => {
     const response = await fetch(`/api/pilots/${driverId}`, { method: "DELETE" });
     await parseResponse<{ success: boolean }>(response);
-    setDrivers((current) => current.filter((driver) => driver.id !== driverId));
+    setSnapshot({ ...snapshot, drivers: snapshot.drivers.filter((driver) => driver.id !== driverId), error: null, loaded: true });
   }, []);
 
   const getDriverById = useCallback(
-    (id: string) => drivers.find((driver) => driver.id === id),
-    [drivers],
+    (id: string) => snapshot.drivers.find((driver) => driver.id === id),
+    [],
   );
 
   return useMemo(
     () => ({
-      drivers,
-      loaded,
-      error,
+      drivers: state.drivers,
+      loaded: state.loaded,
+      error: state.error,
       refresh,
       upsertDriver,
       addComment,
       removeDriver,
       getDriverById,
     }),
-    [addComment, drivers, error, getDriverById, loaded, refresh, removeDriver, upsertDriver],
+    [addComment, getDriverById, refresh, removeDriver, state.drivers, state.error, state.loaded, upsertDriver],
   );
 }
