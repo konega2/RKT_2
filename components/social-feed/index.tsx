@@ -26,8 +26,8 @@ const RECENT_CARDS: RecentCard[] = [
     id: 0,
     title: "PRIMEROS PILOTOS CONFIRMADOS",
     date: "4 Marzo",
-    link: "https://www.instagram.com/p/DVeGVC8DVEU/?img_index=1",
-    image: "/images/update1.png",
+    link: "https://www.instagram.com/p/DV9G10pDW0q/",
+    image: "/images/update3.png",
   },
   {
     id: 1,

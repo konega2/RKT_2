@@ -185,24 +185,48 @@ export function FinalCtaSection({ initialConfirmedPilots }: { initialConfirmedPi
         </motion.div>
 
         {/* CTA Button */}
-        <motion.a
-          href="https://kartodromovalencia.com/pre-inscripcion/"
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.45 }}
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.97 }}
-          className="inline-block rounded-lg px-10 py-5 font-['Rajdhani',sans-serif] text-lg font-black uppercase tracking-widest text-black transition-shadow duration-300 hover:shadow-[0_0_30px_#D4AF3780]"
-          style={{
-            background:
-              "linear-gradient(135deg, #B8962E 0%, #D4AF37 50%, #F0D060 100%)",
-          }}
-        >
-          Reservar mi plaza
-        </motion.a>
+        <div className="mx-auto mt-2 flex w-full max-w-[360px] flex-col gap-4">
+          <motion.a
+            href="https://kartodromovalencia.com/pre-inscripcion/"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.45 }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="block w-full rounded-lg px-10 py-5 text-center font-['Rajdhani',sans-serif] text-lg font-black uppercase tracking-widest text-black transition-shadow duration-300 hover:shadow-[0_0_30px_#D4AF3780]"
+            style={{
+              background:
+                "linear-gradient(135deg, #B8962E 0%, #D4AF37 50%, #F0D060 100%)",
+            }}
+          >
+            Reservar mi plaza
+          </motion.a>
+
+          <motion.a
+            href="https://chat.whatsapp.com/EYN9OnLpEu49Fh4dSHyQr1?mode=gi_t"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, delay: 0.52 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="flex w-full items-center justify-center gap-3 rounded-lg px-10 py-5 text-center font-['Rajdhani',sans-serif] text-lg font-black uppercase tracking-widest text-white transition-all duration-300"
+            style={{
+              background: "#25D366",
+              boxShadow: "0 0 0 1px rgba(255,255,255,0.08), 0 12px 34px rgba(37,211,102,0.36)",
+            }}
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
+              <path d="M19.05 4.91A9.78 9.78 0 0 0 12.1 2c-5.44 0-9.86 4.4-9.86 9.83 0 1.73.46 3.42 1.32 4.9L2 22l5.45-1.42a9.9 9.9 0 0 0 4.64 1.18h.01c5.44 0 9.86-4.41 9.86-9.84 0-2.63-1.03-5.1-2.91-6.99Zm-6.95 15.18h-.01a8.3 8.3 0 0 1-4.23-1.15l-.3-.18-3.23.84.86-3.15-.2-.32a8.2 8.2 0 0 1-1.27-4.3c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 5.84 2.42 8.13 8.13 0 0 1 2.41 5.8c0 4.54-3.7 8.24-8.12 8.24Zm4.52-6.17c-.25-.12-1.48-.73-1.71-.82-.23-.08-.4-.12-.57.13-.17.24-.65.81-.8.97-.15.16-.3.18-.55.06-.25-.13-1.06-.39-2.01-1.23-.74-.66-1.23-1.47-1.37-1.72-.14-.24-.01-.37.1-.49.11-.1.25-.27.37-.41.12-.15.16-.25.24-.42.08-.16.04-.3-.02-.42-.06-.12-.57-1.36-.78-1.86-.21-.5-.42-.43-.57-.44h-.49c-.17 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.69 2.57 4.1 3.61.57.25 1.01.39 1.36.5.57.18 1.08.15 1.49.09.46-.07 1.48-.61 1.69-1.2.21-.6.21-1.11.14-1.21-.07-.1-.23-.16-.48-.28Z" />
+            </svg>
+            <span>Unirme al grupo</span>
+          </motion.a>
+        </div>
 
         <p className="mt-5 text-xs text-white/65">
           Acceso exclusivo · 96 plazas totales · Kartodromo Valencia
