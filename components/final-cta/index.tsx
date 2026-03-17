@@ -149,7 +149,7 @@ export function FinalCtaSection({ initialConfirmedPilots }: { initialConfirmedPi
               transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
             />
           </div>
-          <p className="mt-2 text-xs text-white/72">
+          <p className="mt-2 text-xs text-white">
             {MAX_PILOTS - pilots > 0
               ? `Quedan ${MAX_PILOTS - pilots} plazas disponibles`
               : "¡Aforo completo!"}
@@ -164,7 +164,7 @@ export function FinalCtaSection({ initialConfirmedPilots }: { initialConfirmedPi
           transition={{ duration: 0.6, delay: 0.35 }}
           className="mb-12"
         >
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-white/72">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-white">
             Faltan para el evento · 3 Jul 2026
           </p>
           <div className="flex items-center justify-center gap-3 sm:gap-5">
