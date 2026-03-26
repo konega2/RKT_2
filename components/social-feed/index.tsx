@@ -25,16 +25,16 @@ const RECENT_CARDS: RecentCard[] = [
   {
     id: 0,
     title: "PRIMEROS PILOTOS CONFIRMADOS",
-    date: "4 Marzo",
-    link: "https://www.instagram.com/p/DV9G10pDW0q/",
-    image: "/images/update3.png",
+    date: "19 Marzo",
+    link: "https://www.instagram.com/p/DWCL65jjVoq/?img_index=1",
+    image: "/images/update5.png",
   },
   {
     id: 1,
     title: "NUEVOS PILOTOS CONFIRMADOS",
-    date: "11 Marzo",
-    link: "https://www.instagram.com/p/DVwJd_8jfa5/?img_index=1",
-    image: "/images/update2.png",
+    date: "24 Marzo",
+    link: "https://www.instagram.com/p/DWPCkb_jcJm/",
+    image: "/images/update4.png",
   },
 ];
 
