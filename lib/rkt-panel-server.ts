@@ -39,6 +39,24 @@ type TrainingSessionWithAssignments = {
   time: string;
   duration: number;
   maxPilots: number;
+  laps?: Array<{
+    id: string;
+    pilotId: string;
+    pilotName: string;
+    kart: string;
+    tiempo: number;
+    lapNumber: number;
+    createdAt: Date;
+  }>;
+  sanctions?: Array<{
+    id: string;
+    pilotId: string;
+    tipo: "time_penalty" | "lap_deleted";
+    valor: number;
+    vueltas: number[];
+    motivo: string;
+    createdAt: Date;
+  }>;
   assignments: Array<{
     id: string;
     pilot: PilotWithComments;
@@ -108,6 +126,26 @@ export function pilotCreateInputFromRecord(record: DriverRecord): Prisma.PilotCr
 }
 
 export function serializeTrainingSession(session: TrainingSessionWithAssignments): TrainingSessionRecord {
+  const laps = (session.laps ?? []).map((lap) => ({
+    id: lap.id,
+    pilotoId: lap.pilotId,
+    pilotoNombre: lap.pilotName,
+    kart: lap.kart,
+    tiempo: lap.tiempo,
+    lapNumber: lap.lapNumber,
+    createdAt: lap.createdAt.getTime(),
+  }));
+
+  const sanctions = (session.sanctions ?? []).map((sanction) => ({
+    id: sanction.id,
+    pilotoId: sanction.pilotId,
+    tipo: sanction.tipo,
+    valor: sanction.valor,
+    vueltas: sanction.vueltas,
+    motivo: sanction.motivo,
+    createdAt: sanction.createdAt.getTime(),
+  }));
+
   return {
     id: session.id,
     name: session.name,
@@ -115,6 +153,8 @@ export function serializeTrainingSession(session: TrainingSessionWithAssignments
     duration: session.duration,
     maxPilots: session.maxPilots,
     pilots: session.assignments.map((assignment) => serializePilot(assignment.pilot)),
+    laps,
+    sanctions,
   };
 }
 

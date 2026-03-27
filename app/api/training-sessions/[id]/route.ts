@@ -18,6 +18,8 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
     const session = await prisma.trainingSession.findUnique({
       where: { id: params.id },
       include: {
+        laps: true,
+        sanctions: true,
         assignments: {
           include: {
             pilot: {

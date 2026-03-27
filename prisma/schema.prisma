@@ -14,6 +14,11 @@ enum PilotStatus {
   REJECTED
 }
 
+enum TrainingSanctionType {
+  time_penalty
+  lap_deleted
+}
+
 model Pilot {
   id                String    @id @default(cuid())
   name              String
@@ -33,6 +38,8 @@ model Pilot {
   createdAt         DateTime  @default(now())
   comments          Comment[]
   assignments       TrainingAssignment[]
+  laps              TrainingLap[]
+  sanctions         TrainingSanction[]
 
   @@index([name])
   @@index([status])
@@ -56,6 +63,8 @@ model TrainingSession {
   duration    Int
   maxPilots   Int                  @default(24)
   assignments TrainingAssignment[]
+  laps        TrainingLap[]
+  sanctions   TrainingSanction[]
 
   @@index([time])
 }
@@ -70,4 +79,39 @@ model TrainingAssignment {
   @@unique([pilotId, sessionId])
   @@index([pilotId])
   @@index([sessionId])
+}
+
+model TrainingLap {
+  id        String          @id @default(cuid())
+  pilotId   String
+  pilotName String
+  kart      String
+  tiempo    Float
+  lapNumber Int
+  createdAt DateTime        @default(now())
+  sessionId String
+  pilot     Pilot           @relation(fields: [pilotId], references: [id], onDelete: Cascade)
+  session   TrainingSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([pilotId])
+  @@index([lapNumber])
+  @@index([createdAt])
+}
+
+model TrainingSanction {
+  id        String               @id @default(cuid())
+  pilotId   String
+  tipo      TrainingSanctionType
+  valor     Float                @default(0)
+  vueltas   Int[]
+  motivo    String
+  createdAt DateTime             @default(now())
+  sessionId String
+  pilot     Pilot                @relation(fields: [pilotId], references: [id], onDelete: Cascade)
+  session   TrainingSession      @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([pilotId])
+  @@index([createdAt])
 }

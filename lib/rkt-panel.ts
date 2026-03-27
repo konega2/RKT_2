@@ -42,6 +42,58 @@ export interface TrainingSessionRecord {
   duration: number;
   maxPilots: number;
   pilots: DriverRecord[];
+  laps: TrainingLapRecord[];
+  sanctions: TrainingSanctionRecord[];
+}
+
+export interface TrainingLapRecord {
+  id: string;
+  pilotoId: string;
+  pilotoNombre: string;
+  kart: string;
+  tiempo: number;
+  lapNumber: number;
+  createdAt: number;
+}
+
+export interface LiveClassificationEntry {
+  pilotoId: string;
+  pilotoNombre: string;
+  kart: string;
+  ultimaVuelta: number;
+  mejorVuelta: number;
+  totalVueltas: number;
+  isPersonalBest: boolean;
+  isBestOverall: boolean;
+  hasSanction: boolean;
+  timePenaltySeconds: number;
+}
+
+export type TrainingSanctionType = "time_penalty" | "lap_deleted";
+
+export interface TrainingSanctionRecord {
+  id: string;
+  pilotoId: string;
+  tipo: TrainingSanctionType;
+  valor: number;
+  vueltas: number[];
+  motivo: string;
+  createdAt: number;
+}
+
+export interface AddTrainingSanctionInput {
+  pilotoId: string;
+  tipo: TrainingSanctionType;
+  valor?: number;
+  vueltas: number[];
+  motivo: string;
+}
+
+export interface AddLapInput {
+  pilotoId: string;
+  pilotoNombre: string;
+  kart: string;
+  tiempo: number;
 }
 
 export const PANEL_AUTH_KEY = "rkt-panel-authenticated";

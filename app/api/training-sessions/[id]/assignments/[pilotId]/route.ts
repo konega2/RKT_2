@@ -18,6 +18,8 @@ export async function DELETE(
     const updatedSession = await prisma.trainingSession.findUnique({
       where: { id: params.id },
       include: {
+        laps: true,
+        sanctions: true,
         assignments: {
           include: {
             pilot: {

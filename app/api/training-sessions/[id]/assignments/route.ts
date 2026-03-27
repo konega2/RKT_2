@@ -53,6 +53,8 @@ export async function POST(request: Request, { params }: { params: { id: string 
     const updatedSession = await prisma.trainingSession.findUnique({
       where: { id: params.id },
       include: {
+        laps: true,
+        sanctions: true,
         assignments: {
           include: {
             pilot: {

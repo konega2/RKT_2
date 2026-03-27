@@ -17,6 +17,8 @@ export async function GET() {
 
     const sessions = await prisma.trainingSession.findMany({
       include: {
+        laps: true,
+        sanctions: true,
         assignments: {
           include: {
             pilot: {
