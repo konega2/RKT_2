@@ -24,17 +24,17 @@ interface RecentCard {
 const RECENT_CARDS: RecentCard[] = [
   {
     id: 0,
-    title: "PRIMEROS PILOTOS CONFIRMADOS",
-    date: "19 Marzo",
-    link: "https://www.instagram.com/p/DWCL65jjVoq/?img_index=1",
-    image: "/images/update5.png",
+    title: "NUEVOS PILOTOS CONFIRMADOS",
+    date: "29 de abril de 2026",
+    link: "https://www.instagram.com/p/DXuan8ljUcn/?img_index=1",
+    image: "/images/update 7.png",
   },
   {
     id: 1,
-    title: "NUEVOS PILOTOS CONFIRMADOS",
-    date: "24 Marzo",
-    link: "https://www.instagram.com/p/DWPCkb_jcJm/",
-    image: "/images/update4.png",
+    title: "NUEVO COLABORADOR DEL EVENTO",
+    date: "24 de abril de 2026",
+    link: "https://www.instagram.com/p/DXe99G8jVzo/?img_index=1",
+    image: "/images/update6.png",
   },
 ];
 
