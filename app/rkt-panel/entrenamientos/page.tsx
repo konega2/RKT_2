@@ -36,7 +36,7 @@ export default function RktPanelTrainingsPage() {
       try {
         setError(null);
         const response = await fetch("/api/training-sessions", { cache: "no-store" });
-        const data = (await response.json()) as TrainingSessionRecord[] | { error?: string };
+        const data = (await response.json()) as TrainingSessionSummaryRecord[] | { error?: string };
 
         if (!response.ok || !Array.isArray(data)) {
           setError(typeof data === "object" && "error" in data ? data.error ?? "No se han podido cargar las sesiones." : "No se han podido cargar las sesiones.");
