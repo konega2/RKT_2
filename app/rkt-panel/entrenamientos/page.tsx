@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 
 import { PanelShell } from "@/components/rkt-panel/panel-shell";
-import { type TrainingSessionRecord } from "@/lib/rkt-panel";
+import { type TrainingSessionSummaryRecord } from "@/lib/rkt-panel";
 
 function toMinutes(value: string) {
   const [hours, minutes] = value.split(":").map(Number);
@@ -27,7 +27,7 @@ function statusStyle(count: number, max: number) {
 }
 
 export default function RktPanelTrainingsPage() {
-  const [sessions, setSessions] = useState<TrainingSessionRecord[]>([]);
+  const [sessions, setSessions] = useState<TrainingSessionSummaryRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -82,7 +82,7 @@ export default function RktPanelTrainingsPage() {
               </div>
             ))
           : sortedSessions.map((session, index) => {
-              const assigned = session.pilots.length;
+              const assigned = session.assignedPilots;
               const visual = statusStyle(assigned, session.maxPilots);
 
               return (

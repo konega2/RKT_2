@@ -26,7 +26,7 @@ export default function RktPanelDashboardPage() {
 
     async function loadTrainingSessionsTotal() {
       try {
-        const response = await fetch("/api/training-sessions", {
+        const response = await fetch("/api/training-sessions/count", {
           cache: "no-store",
           signal: controller.signal,
         });
@@ -35,8 +35,8 @@ export default function RktPanelDashboardPage() {
           throw new Error("No se han podido cargar las sesiones.");
         }
 
-        const sessions = (await response.json()) as unknown[];
-        setTrainingSessionsTotal(sessions.length);
+        const data = (await response.json()) as { trainingSessionsTotal?: number };
+        setTrainingSessionsTotal(typeof data.trainingSessionsTotal === "number" ? data.trainingSessionsTotal : null);
       } catch (error) {
         if (controller.signal.aborted) {
           return;

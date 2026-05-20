@@ -46,6 +46,14 @@ export interface TrainingSessionRecord {
   sanctions: TrainingSanctionRecord[];
 }
 
+export interface TrainingSessionSummaryRecord {
+  id: string;
+  name: string;
+  time: string;
+  maxPilots: number;
+  assignedPilots: number;
+}
+
 export interface TrainingLapRecord {
   id: string;
   pilotoId: string;
