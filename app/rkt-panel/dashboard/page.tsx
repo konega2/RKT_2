@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -8,6 +9,7 @@ import { useDriverStore } from "@/components/rkt-panel/use-driver-store";
 
 export default function RktPanelDashboardPage() {
   const { drivers, loaded } = useDriverStore();
+  const [trainingSessionsTotal, setTrainingSessionsTotal] = useState<number | null>(null);
 
   const confirmedDrivers = drivers.filter((driver) => driver.status === "CONFIRMED").length;
   const pendingDrivers = drivers.filter((driver) => driver.status === "PENDING").length;
@@ -18,6 +20,36 @@ export default function RktPanelDashboardPage() {
         !driver.documentation.insuranceAccepted ||
         !driver.documentation.liabilitySigned),
   ).length;
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadTrainingSessionsTotal() {
+      try {
+        const response = await fetch("/api/training-sessions", {
+          cache: "no-store",
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error("No se han podido cargar las sesiones.");
+        }
+
+        const sessions = (await response.json()) as unknown[];
+        setTrainingSessionsTotal(sessions.length);
+      } catch (error) {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        setTrainingSessionsTotal(null);
+      }
+    }
+
+    void loadTrainingSessionsTotal();
+
+    return () => controller.abort();
+  }, []);
 
   return (
     <PanelShell heading="Panel de gestión RKT" kicker="Dashboard interno">
@@ -40,6 +72,7 @@ export default function RktPanelDashboardPage() {
               { label: "Pendientes", value: loaded ? pendingDrivers : "--" },
               { label: "Confirmados", value: loaded ? confirmedDrivers : "--" },
               { label: "Documentación pendiente", value: loaded ? pendingDocs : "--" },
+              { label: "Entrenamientos totales", value: trainingSessionsTotal ?? "--" },
             ].map((stat, index) => (
               <div
                 key={stat.label}
