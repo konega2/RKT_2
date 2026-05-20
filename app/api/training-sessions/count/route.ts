@@ -7,7 +7,20 @@ export const revalidate = 0;
 
 export async function GET() {
   try {
-    const trainingSessionsTotal = await prisma.trainingSession.count();
+    const sessions = await prisma.trainingSession.findMany({
+      select: {
+        _count: {
+          select: {
+            assignments: true,
+          },
+        },
+      },
+    });
+
+    const trainingSessionsTotal = sessions.reduce(
+      (total, session) => total + session._count.assignments,
+      0,
+    );
 
     return NextResponse.json(
       { trainingSessionsTotal },

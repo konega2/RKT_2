@@ -72,7 +72,7 @@ export default function RktPanelDashboardPage() {
               { label: "Pendientes", value: loaded ? pendingDrivers : "--" },
               { label: "Confirmados", value: loaded ? confirmedDrivers : "--" },
               { label: "Documentación pendiente", value: loaded ? pendingDocs : "--" },
-              { label: "Entrenamientos totales", value: trainingSessionsTotal ?? "--" },
+              { label: "Reservas totales", value: trainingSessionsTotal ?? "--" },
             ].map((stat, index) => (
               <div
                 key={stat.label}
