@@ -54,6 +54,19 @@ export interface TrainingSessionSummaryRecord {
   assignedPilots: number;
 }
 
+export interface TrainingPilotSummarySessionRecord {
+  sessionId: string;
+  sessionName: string;
+  time: string;
+}
+
+export interface TrainingPilotSummaryRecord {
+  pilotId: string;
+  pilotName: string;
+  fpCount: number;
+  sessions: TrainingPilotSummarySessionRecord[];
+}
+
 export interface TrainingLapRecord {
   id: string;
   pilotoId: string;
