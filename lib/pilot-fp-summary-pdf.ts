@@ -2,13 +2,72 @@
 
 import jsPDF from "jspdf";
 
-import type { TrainingPilotSummaryRecord } from "@/lib/rkt-panel";
+import { type DriverCategory, type TrainingPilotSummaryRecord } from "@/lib/rkt-panel";
 
 type GeneratePilotFpSummaryPdfInput = {
   generatedAt: Date;
   pilots: TrainingPilotSummaryRecord[];
   logoPath?: string;
 };
+
+function getCategoryBadgeStyle(category: DriverCategory | "Sin categoría") {
+  switch (category) {
+    case "Junior":
+      return { fill: [233, 249, 252] as const, text: [10, 132, 163] as const, border: [167, 234, 246] as const };
+    case "Master":
+      return { fill: [255, 251, 235] as const, text: [161, 98, 7] as const, border: [253, 230, 138] as const };
+    case "Femina":
+      return { fill: [253, 242, 248] as const, text: [190, 24, 93] as const, border: [251, 207, 232] as const };
+    case "Overall":
+      return { fill: [241, 239, 255] as const, text: [91, 33, 182] as const, border: [216, 204, 255] as const };
+    default:
+      return { fill: [243, 244, 246] as const, text: [75, 85, 99] as const, border: [209, 213, 219] as const };
+  }
+}
+
+function renderCategoryBadges(doc: jsPDF, categories: DriverCategory[], startX: number, startY: number) {
+  const labels: Array<DriverCategory | "Sin categoría"> =
+    categories.length > 0 ? [...categories] : ["Sin categoría"];
+  const gapX = 1.8;
+  const paddingX = 2.4;
+  const badgeHeight = 4.8;
+  const fontSize = 7.1;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(fontSize);
+
+  let cursorX = startX;
+
+  labels.forEach((label) => {
+    const style = getCategoryBadgeStyle(label);
+    const badgeWidth = doc.getTextWidth(label) + paddingX * 2;
+
+    doc.setFillColor(style.fill[0], style.fill[1], style.fill[2]);
+    doc.setDrawColor(style.border[0], style.border[1], style.border[2]);
+    doc.setTextColor(style.text[0], style.text[1], style.text[2]);
+    doc.setLineWidth(0.25);
+    doc.roundedRect(cursorX, startY, badgeWidth, badgeHeight, 2.4, 2.4, "FD");
+    doc.text(String(label).toUpperCase(), cursorX + paddingX, startY + 3.45);
+
+    cursorX += badgeWidth + gapX;
+  });
+
+  return badgeHeight;
+}
+
+function truncateTextToWidth(doc: jsPDF, text: string, maxWidth: number) {
+  if (doc.getTextWidth(text) <= maxWidth) {
+    return text;
+  }
+
+  let result = text;
+
+  while (result.length > 0 && doc.getTextWidth(`${result}…`) > maxWidth) {
+    result = result.slice(0, -1);
+  }
+
+  return result.length > 0 ? `${result}…` : "…";
+}
 
 async function loadImageDataUrl(path: string): Promise<string | null> {
   try {
@@ -89,37 +148,86 @@ export async function generatePilotFpSummaryPdf({
     });
   }
 
+  function ensureSpace(cursorY: number, requiredHeight: number) {
+    if (cursorY + requiredHeight <= 278) {
+      return cursorY;
+    }
+
+    doc.addPage();
+    const nextCursorY = 14;
+    drawHeader(nextCursorY);
+    return nextCursorY + 8;
+  }
+
   let cursorY = 38;
   drawHeader(cursorY);
   cursorY += 8;
 
-  pilots.forEach((pilot, index) => {
+  const sortedPilots = [...pilots].sort((leftPilot, rightPilot) => {
+    return rightPilot.fpCount - leftPilot.fpCount || leftPilot.pilotName.localeCompare(rightPilot.pilotName, "es");
+  });
+
+  sortedPilots.forEach((pilot, index) => {
     const scheduleText = pilot.sessions.map((session) => `${session.sessionName} · ${session.time}`).join(" | ");
+    const wrappedFp = doc.splitTextToSize(String(pilot.fpCount), columns[1].width - 2);
+    const wrappedSchedule = doc.splitTextToSize(scheduleText || "—", columns[2].width - 2);
+    const badgeLabels: Array<DriverCategory | "Sin categoría"> =
+      pilot.categories.length > 0 ? [...pilot.categories] : ["Sin categoría"];
+    const badgeGap = 1.8;
+    const badgePaddingX = 2.4;
+    const badgeHeight = 4.8;
+    const badgeFontSize = 7.1;
 
-    const rowCells = [pilot.pilotName, String(pilot.fpCount), scheduleText || "—"];
-    const wrappedCells = rowCells.map((text, cellIndex) => doc.splitTextToSize(text, columns[cellIndex].width - 2));
-    const maxLines = wrappedCells.reduce((best, lines) => Math.max(best, lines.length), 1);
-    const rowHeight = Math.max(8, maxLines * 4.8 + 2.2);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(badgeFontSize);
 
-    if (cursorY + rowHeight > 278) {
-      doc.addPage();
-      cursorY = 14;
-      drawHeader(cursorY);
-      cursorY += 8;
-    }
+    const badgeWidths = badgeLabels.map((label) => doc.getTextWidth(label.toUpperCase()) + badgePaddingX * 2);
+    const badgesTotalWidth = badgeWidths.reduce((sum, width, badgeIndex) => sum + width + (badgeIndex > 0 ? badgeGap : 0), 0);
+    const pilotNameMaxWidth = Math.max(18, columns[0].width - 2 - badgesTotalWidth - 2.2);
+    const pilotName = truncateTextToWidth(doc, pilot.pilotName, pilotNameMaxWidth);
+
+    const pilotCellHeight = badgeHeight + 3.2;
+    const fpCellHeight = wrappedFp.length * 4.6;
+    const scheduleCellHeight = wrappedSchedule.length * 4.6;
+    const rowHeight = Math.max(11, pilotCellHeight, fpCellHeight, scheduleCellHeight) + 2.4;
+
+    cursorY = ensureSpace(cursorY, rowHeight);
 
     doc.setFillColor(index % 2 === 0 ? 248 : 241, index % 2 === 0 ? 248 : 241, index % 2 === 0 ? 248 : 241);
     doc.rect(left, cursorY, 186, rowHeight, "F");
 
-    let x = left;
     doc.setTextColor(20, 20, 20);
 
-    wrappedCells.forEach((lines, cellIndex) => {
-      doc.setFont("helvetica", cellIndex === 1 ? "bold" : "normal");
-      doc.setFontSize(cellIndex === 1 ? 10.2 : 9.2);
-      doc.text(lines, x + 1.5, cursorY + 4.8);
-      x += columns[cellIndex].width;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9.2);
+    const pilotTextY = cursorY + 4.9;
+    doc.text(pilotName, left + 1.5, pilotTextY);
+
+    let badgeX = left + 1.5 + doc.getTextWidth(pilotName) + 2.2;
+    badgeLabels.forEach((label, badgeIndex) => {
+      const style = getCategoryBadgeStyle(label);
+      const badgeWidth = badgeWidths[badgeIndex];
+
+      doc.setFillColor(style.fill[0], style.fill[1], style.fill[2]);
+      doc.setDrawColor(style.border[0], style.border[1], style.border[2]);
+      doc.setTextColor(style.text[0], style.text[1], style.text[2]);
+      doc.setLineWidth(0.25);
+      doc.roundedRect(badgeX, cursorY + 1.2, badgeWidth, badgeHeight, 2.4, 2.4, "FD");
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(badgeFontSize);
+      doc.text(String(label).toUpperCase(), badgeX + badgePaddingX, cursorY + 4.55);
+
+      badgeX += badgeWidth + badgeGap;
     });
+
+    doc.setTextColor(20, 20, 20);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10.2);
+    doc.text(wrappedFp, left + columns[0].width + 1.5, cursorY + 4.8);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9.2);
+    doc.text(wrappedSchedule, left + columns[0].width + columns[1].width + 1.5, cursorY + 4.8);
 
     cursorY += rowHeight;
   });

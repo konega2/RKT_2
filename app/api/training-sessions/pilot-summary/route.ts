@@ -5,7 +5,7 @@ import {
   ensurePilotSeedData,
   ensureTrainingSessionsSeedData,
 } from "@/lib/rkt-panel-server";
-import type { TrainingPilotSummaryRecord } from "@/lib/rkt-panel";
+import type { DriverCategory, TrainingPilotSummaryRecord } from "@/lib/rkt-panel";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -19,6 +19,8 @@ export async function GET() {
       select: {
         id: true,
         name: true,
+        status: true,
+        category: true,
       },
       orderBy: { name: "asc" },
     });
@@ -43,12 +45,15 @@ export async function GET() {
     });
 
     const byPilot = new Map<string, TrainingPilotSummaryRecord>(
-      pilots.map((pilot) => [pilot.id, {
-        pilotId: pilot.id,
-        pilotName: pilot.name,
-        fpCount: 0,
-        sessions: [],
-      }]),
+      pilots
+        .filter((pilot) => pilot.status === "CONFIRMED")
+        .map((pilot) => [pilot.id, {
+          pilotId: pilot.id,
+          pilotName: pilot.name,
+          categories: (Array.isArray(pilot.category) ? pilot.category : []) as DriverCategory[],
+          fpCount: 0,
+          sessions: [],
+        }]),
     );
 
     sessions.forEach((session) => {
@@ -75,7 +80,7 @@ export async function GET() {
         ...entry,
         sessions: [...entry.sessions].sort((left, right) => left.time.localeCompare(right.time)),
       }))
-      .sort((left, right) => left.pilotName.localeCompare(right.pilotName, "es"));
+      .sort((left, right) => right.fpCount - left.fpCount || left.pilotName.localeCompare(right.pilotName, "es"));
 
     return NextResponse.json(payload, {
       headers: {

@@ -63,6 +63,7 @@ export interface TrainingPilotSummarySessionRecord {
 export interface TrainingPilotSummaryRecord {
   pilotId: string;
   pilotName: string;
+  categories: DriverCategory[];
   fpCount: number;
   sessions: TrainingPilotSummarySessionRecord[];
 }
